@@ -17,7 +17,7 @@ from forms import *
 import collections
 import collections.abc
 collections.Callable = collections.abc.Callable
-import sys
+import sys, os
 from operator import itemgetter # for sorting lists of tuples
 
 # import database's models
@@ -28,6 +28,7 @@ from models import db, setup_db, Actor, Movie
 #----------------------------------------------------------------------------#
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 moment = Moment(app)
 setup_db(app)
 CORS(app)
