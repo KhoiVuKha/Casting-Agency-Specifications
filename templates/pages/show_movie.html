@@ -1,0 +1,41 @@
+{% extends 'layouts/main.html' %}
+{% block title %}{{ movie.name }} | Movie{% endblock %}
+{% block content %}
+<div class="row">
+	<div class="col-sm-6">
+		<h1 class="monospace">
+			{{ movie.title }}
+		</h1>
+		<p class="subtitle">
+			ID: {{ movie.id }}
+		</p>
+
+		<p>
+			<i class="fas fa-phone-alt"></i> {% if movie.phone %}{{ movie.phone }}{% else %}No Phone{% endif %}
+        </p>
+
+	</div>
+
+	<div class="col-sm-6">
+		<img src="{{ movie.image_link }}" alt="Actor Image" />
+	</div>
+</div>
+<section>
+	<h2 class="monospace">{{ movie.upcoming_shows_count }} Upcoming {% if movie.upcoming_shows_count == 1 %}Show{% else %}Shows{% endif %}</h2>
+	<div class="row">
+		{%for show in movie.upcoming_shows %}
+		<div class="col-sm-4">
+			<div class="tile tile-show">
+				<img src="{{ show.actor_image_link }}" alt="Show Actor Image" />
+				<h5><a href="/actors/{{ show.actor_id }}">{{ show.actor_name }}</a></h5>
+				<h6>{{ show.start_time|datetime('full') }}</h6>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</section>
+
+<a href="/movies/{{ movie.id }}/edit"><button class="btn btn-primary btn-lg">Edit</button></a>
+
+{% endblock %}
+
