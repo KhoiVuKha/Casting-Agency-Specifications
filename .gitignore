@@ -30,3 +30,5 @@ htmlcov/
 .direnv
 
 .github/**
+
+setup.sh

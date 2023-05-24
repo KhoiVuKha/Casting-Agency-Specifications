@@ -9,6 +9,7 @@ from flask import Flask, render_template, request, Response, flash, redirect, ur
 from flask_moment import Moment
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 import logging
 from logging import Formatter, FileHandler
 from flask_wtf import Form
@@ -20,7 +21,7 @@ import sys
 from operator import itemgetter # for sorting lists of tuples
 
 # import database's models
-from models import db, Actor, Movie
+from models import db, setup_db, Actor, Movie
 
 #----------------------------------------------------------------------------#
 # App Config.
@@ -28,9 +29,8 @@ from models import db, Actor, Movie
 
 app = Flask(__name__)
 moment = Moment(app)
-app.config.from_object('config')
-db.init_app(app)
-migrate = Migrate(app, db)
+setup_db(app)
+CORS(app)
 
 #----------------------------------------------------------------------------#
 # Filters.
@@ -104,7 +104,7 @@ def show_actor(actor_id):
 @app.route('/actors/create', methods=['GET'])
 def create_actor_form():
   #@todo: refactor
-  form = ActorForm()
+  form = ActorForm(request.form, meta={'csrf': False})
   return render_template('forms/new_actor.html', form=form)
 
 @app.route('/actors/create', methods=['POST'])
@@ -260,7 +260,7 @@ def edit_actor_submission(actor_id):
 
 @app.route('/movies/create', methods=['GET'])
 def create_movie_form():
-  form = MovieForm()
+  form = MovieForm(request.form, meta={'csrf': False})
   return render_template('forms/new_movie.html', form=form)
 
 @app.route('/movies/create', methods=['POST'])
@@ -330,10 +330,3 @@ if not app.debug:
 # Default port:
 if __name__ == '__main__':
     app.run()
-
-# Or specify port manually:
-'''
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
-'''
