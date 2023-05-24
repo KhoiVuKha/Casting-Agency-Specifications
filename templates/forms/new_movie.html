@@ -3,21 +3,15 @@
 {% block content %}
   <div class="form-wrapper">
     <form method="post" class="form" action="/movies/create">
-      <h3 class="form-heading">List a new Movies <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
+      <h3 class="form-heading">List a new movie <a href="{{ url_for('index') }}" title="Back to homepage"><i class="fa fa-home pull-right"></i></a></h3>
       <div class="form-group">
-        <label for="name">Name</label>
-        {{ form.name(class_ = 'form-control', autofocus = true) }}
+        <label for="title">Title</label>
+        {{ form.title(class_ = 'form-control', autofocus = true) }}
       </div>
 
       <div class="form-group">
-          <label for="phone">Phone</label>
-          {{ form.phone(class_ = 'form-control', placeholder='xxx-xxx-xxxx', autofocus = true) }}
-        </div>
-        
-      <div class="form-group">
-        <label for="genres">Genres</label>
-        <small>Ctrl+Click to select multiple</small>
-        {{ form.genres(class_ = 'form-control', placeholder='Genres, separated by commas', autofocus = true) }}
+          <label for="release_date">Release Date</label>
+          {{ form.release_date(class_ = 'form-control', placeholder='Release Date', autofocus = true) }}
       </div>
       
        <div class="form-group">

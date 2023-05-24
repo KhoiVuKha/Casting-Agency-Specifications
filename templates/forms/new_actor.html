@@ -4,9 +4,20 @@
   <div class="form-wrapper">
     <form method="post" class="form">
       <h3 class="form-heading">List a new actor</h3>
+
       <div class="form-group">
         <label for="name">Name</label>
         {{ form.name(class_ = 'form-control', autofocus = true) }}
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age</label>
+        {{ form.age(class_ = 'form-control', placeholder='Age', autofocus = true) }}
+      </div>
+
+      <div class="form-group">
+        <label for="gender">Gender</label>
+        {{ form.gender(class_ = 'form-control', placeholder='Gender', autofocus = true) }}
       </div>
       
       <div class="form-group">

@@ -12,7 +12,7 @@ class Actor(db.Model):
   gender = db.Column(db.String)
   image_link = db.Column(db.String(500))
   
-  movies = db.relationship('Movie', backref='actor', lazy=True)
+  #movies = db.relationship('Movie', backref='actor', lazy=True)
 
   def to_dict(self):
     return {
@@ -34,7 +34,7 @@ class Movie(db.Model):
   release_date = db.Column(db.String(120))
   image_link = db.Column(db.String(500))
   
-  actors = db.relationship('Actor', backref='movie', lazy=True)
+  #actors = db.relationship('Actor', backref='movie', lazy=True)
 
   def to_dict(self):
     return {
