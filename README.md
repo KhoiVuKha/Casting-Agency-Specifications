@@ -4,7 +4,7 @@ Casting-Agency-Specifications
 ## Introduction
 The Casting Agency models a company that is responsible for creating movies and managing and assigning actors to those movies. You are an Executive Producer within the company and are creating a system to simplify and streamline your process.
 
-<img width="1439" alt="image" src="https://user-images.githubusercontent.com/15206083/224490735-1165387f-67b3-4000-9a18-a5611be1acd6.png">
+![image](https://github.com/KhoiVuKha/Casting-Agency-Specifications/assets/15206083/12ef12f0-8827-4beb-a7e7-f3d214e5d7da)
 
 
 ## Overview
