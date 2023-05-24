@@ -6,36 +6,25 @@
 		<h1 class="monospace">
 			{{ actor.name }}
 		</h1>
+
 		<p class="subtitle">
 			ID: {{ actor.id }}
 		</p>
-		<div class="gender">
-			{% for genre in actor.gender %}
-			<span class="gender">{{ gender }}</span>
-			{% endfor %}
-		</div>
-		<p>
-			<i class="fas fa-map-marker"></i> {% if actor.age %}{{ actor.age }}{% else %}No Age{% endif %}
+
+		<p class="subtitle">
+			Age: {{ actor.age }}
 		</p>
+
+		<p class="subtitle">
+			Gender: {{ actor.gender }}
+		</p>
+
 	</div>
 	<div class="col-sm-6">
 		<img src="{{ actor.image_link }}" alt="Actor Image" />
 	</div>
 </div>
-<section>
-	<h2 class="monospace">{{ actor.upcoming_shows_count }} Upcoming {% if actor.upcoming_shows_count == 1 %}Show{% else %}Shows{% endif %}</h2>
-	<div class="row">
-		{%for show in actor.upcoming_shows %}
-		<div class="col-sm-4">
-			<div class="tile tile-show">
-				<img src="{{ show.artist_image_link }}" alt="Show Artist Image" />
-				<h5><a href="/artists/{{ show.artist_id }}">{{ show.artist_name }}</a></h5>
-				<h6>{{ show.start_time|datetime('full') }}</h6>
-			</div>
-		</div>
-		{% endfor %}
-	</div>
-</section>
+
 <section>
 	<button type="submit" onclick="editClickHandler(this)" data-id="{{ actor.id }}" class="btn btn-primary btn-lg"
 			style="width: 200px;">Edit Actor</button>

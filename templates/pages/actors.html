@@ -1,19 +1,16 @@
 {% extends 'layouts/main.html' %}
 {% block title %}Casting Agency | Actors{% endblock %}
 {% block content %}
-{% for area in areas %}
-<h3>{{ area.city }}, {{ area.state }}</h3>
-	<ul class="items">
-		{% for actor in area.actors %}
-		<li>
-			<a href="/actors/{{ actor.id }}">
-				<i class="fas fa-music"></i>
-				<div class="item">
-					<h5>{{ actor.name }}</h5>
-				</div>
-			</a>
-		</li>
-		{% endfor %}
-	</ul>
-{% endfor %}
+<ul class="items">
+	{% for actor in actors %}
+	<li>
+		<a href="/actors/{{ actor.id }}">
+			<i class="fas fa-users"></i>
+			<div class="item">
+				<h5>{{ actor.name }}</h5>
+			</div>
+		</a>
+	</li>
+	{% endfor %}
+</ul>
 {% endblock %}

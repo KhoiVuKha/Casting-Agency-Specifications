@@ -59,12 +59,9 @@ def index():
 
 @app.route('/actors')
 def actors():
-  # Data to save all actors
-  data = []
-  actors = Actor.query.all()
-
+  data = Actor.query.all()
   print(data)
-  return render_template('pages/actors.html', areas=data)
+  return render_template('pages/actors.html', actors=data)
 
 @app.route('/actors/search', methods=['POST'])
 def search_actors():
@@ -93,9 +90,9 @@ def show_actor(actor_id):
   actor = Actor.query.get(actor_id)
   data = actor.to_dict()
 
-  movies = list(Actor.movies)
-  movie_count = len(movies)
-  data["movie_count"] = movie_count
+  #movies = list(Actor.movies)
+  #movie_count = len(movies)
+  #data["movie_count"] = movie_count
 
   print(data)
   #@todo: refactor the page
@@ -123,7 +120,7 @@ def create_actor_submission():
     try:
       actor = Actor()
       actor.name = form.name.data
-      actor.city = form.city.data
+      actor.age = form.age.data
       actor.gender = form.gender.data
       actor.image_link = form.image_link.data
 
@@ -172,6 +169,7 @@ def search_movies():
       "id": movie.id,
       "title": movie.title,
       "release_date": movie.release_date,
+      "image_link": movie.image_link,
       "actors": None #@todo
     })
 
@@ -291,6 +289,21 @@ def create_movie_submission():
     finally:
       db.session.close()
     return render_template('pages/home.html')
+
+@app.route('/movies/<movie_id>', methods=['DELETE'])
+def delete_movie(movie_id):
+  try:
+    movie = Movie.query.get(movie_id)
+    movie_title = movie.title
+    db.session.delete(movie)
+    db.session.commit()
+    flash('Successfully removed movie {0}.'.format(movie_title))
+  except Exception as err:
+    db.session.rollback()
+    flash('An error occurred removing the Movie: {0}. Error: {1}'.format(movie_title, err))
+  finally:
+    db.session.close()
+  return jsonify({'success': True})
 
 @app.errorhandler(404)
 def not_found_error(error):
