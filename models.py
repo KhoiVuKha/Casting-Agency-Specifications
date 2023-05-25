@@ -42,6 +42,33 @@ class Actor(db.Model):
       'gender': self.gender,
       'image_link': self.image_link
     }
+  
+  '''
+  insert()
+    inserts a new model into a database
+    the model must have a unique name
+    the model must have a unique id or null id
+  '''
+  def insert(self):
+    db.session.add(self)
+    db.session.commit()
+  
+  '''
+  delete()
+    deletes a new model into a database
+    the model must exist in the database
+  '''
+  def delete(self):
+    db.session.delete(self)
+    db.session.commit()
+
+  '''
+  update()
+    updates a new model into a database
+    the model must exist in the database
+  '''
+  def update(self):
+    db.session.commit()
 
   def __repr__(self):
     return f'<<Actor {self.id} {self.name}>'
@@ -63,6 +90,33 @@ class Movie(db.Model):
       'release_date': self.release_date,
       'image_link': self.image_link
     }
+  
+  '''
+  insert()
+    inserts a new model into a database
+    the model must have a unique name
+    the model must have a unique id or null id
+  '''
+  def insert(self):
+    db.session.add(self)
+    db.session.commit()
+  
+  '''
+  delete()
+    deletes a new model into a database
+    the model must exist in the database
+  '''
+  def delete(self):
+    db.session.delete(self)
+    db.session.commit()
+
+  '''
+  update()
+    updates a new model into a database
+    the model must exist in the database
+  '''
+  def update(self):
+    db.session.commit()
       
   def __repr__(self):
     return f'<Movie {self.id} {self.title}>'

@@ -125,8 +125,8 @@ def create_actor_submission():
       actor.gender = form.gender.data
       actor.image_link = form.image_link.data
 
-      db.session.add(actor)
-      db.session.commit()
+      # Insert new actor to database
+      actor.insert()
       flash('Actor: {0} created successfully!'.format(actor.name))
 
     except Exception as err:
@@ -142,8 +142,9 @@ def delete_actor(actor_id):
   try:
     actor = Actor.query.get(actor_id)
     actor_name = actor.name
-    db.session.delete(actor)
-    db.session.commit()
+
+    # Delete the selected actor 
+    actor.delete()
     flash('Successfully removed actor {0}.'.format(actor_name))
   except Exception as err:
     db.session.rollback()
@@ -212,7 +213,9 @@ def edit_movie_submission(movie_id):
       movie.title = form.title.data
       movie.release_date = form.release_date.data
       movie.image_link = form.image_link.data
-      db.session.commit()
+
+      # Update movie info to database
+      movie.update()
       flash('Movie: {0} updated successfully'.format(movie.title))
     except Exception as err:
       db.session.rollback()
@@ -246,7 +249,9 @@ def edit_actor_submission(actor_id):
       actor.age = form.age.data
       actor.gender = form.gender.data
       actor.image_link = form.image_link.data
-      db.session.commit()
+
+      # Update actor info to database
+      actor.update()
       flash('Actor: {0} updated successfully'.format(actor.name))
     except Exception as err:
       db.session.rollback()
@@ -280,8 +285,8 @@ def create_movie_submission():
       movie.release_date = form.release_date.data
       movie.image_link = form.image_link.data
 
-      db.session.add(movie)
-      db.session.commit()
+      # Insert new movie to database
+      movie.insert()
       flash('Movie: {0} created successfully'.format(movie.title))
     except Exception as err:
       db.session.rollback()
@@ -296,8 +301,9 @@ def delete_movie(movie_id):
   try:
     movie = Movie.query.get(movie_id)
     movie_title = movie.title
-    db.session.delete(movie)
-    db.session.commit()
+
+    # Delete selected movie from database
+    movie.delete()
     flash('Successfully removed movie {0}.'.format(movie_title))
   except Exception as err:
     db.session.rollback()
