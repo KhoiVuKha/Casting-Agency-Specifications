@@ -1,14 +1,14 @@
-Casting-Agency-Specifications
+Project-Casting-Agency
 -----
 
 ## Introduction
 The Casting Agency models a company that is responsible for creating movies and managing and assigning actors to those movies. You are an Executive Producer within the company and are creating a system to simplify and streamline your process.
 
-![image](https://github.com/KhoiVuKha/Casting-Agency-Specifications/assets/15206083/12ef12f0-8827-4beb-a7e7-f3d214e5d7da)
+![image](https://github.com/KhoiVuKha/Project-Casting-Agency/assets/15206083/12ef12f0-8827-4beb-a7e7-f3d214e5d7da)
 
 
 ## Overview
-This Casting-Agency-Specifications takes responsible for:
+This Project-Casting-Agency takes responsible for:
 
 * creating new actors, movies.
 * searching for actors and movies.
@@ -123,8 +123,8 @@ Acceptance Criteria
 ## Development Setup
 1. **Clone the project**
 ```
-git clone git@github.com:KhoiVuKha/Casting-Agency-Specifications.git
-cd Casting-Agency-Specifications
+git clone git@github.com:KhoiVuKha/Project-Casting-Agency.git
+cd Project-Casting-Agency
 ```
 
 3. **Initialize and activate a virtualenv using:**
