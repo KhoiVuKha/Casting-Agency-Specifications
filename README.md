@@ -219,7 +219,7 @@ Currently, the API will return two error types when requests fail:
   - Fetches all actor's information
   - Request parameters: None
   - Returns: list of actors and success status.
-- Sample of request: ```curl http://127.0.0.1:5000/actors -H "Content-Type: application/json" -H "Authorization: Bearer {TOKEN}"```
+- Sample of request: ```curl http://127.0.0.1:5000/actors -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT_TOKEN>'```
 - Sample of response:
 ```
 {
@@ -263,7 +263,7 @@ Currently, the API will return two error types when requests fail:
   - Request parameters: search_term.
   - Returns: (list of) actor(s) that related to search term, total number of actors match, success status.
 - Sample of request: 
-```curl http://127.0.0.1:5000/actors/search -X POST -H "Content-Type: application/json" -d '{"search_term": "chan"}'```
+```curl http://127.0.0.1:5000/actors/search -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT_TOKEN>' -d '{"search_term": "chan"}'```
 - Sample of response: when search_term = "chan"
 ```
 {
@@ -286,7 +286,7 @@ Currently, the API will return two error types when requests fail:
   - Fetches actor by id
   - Request parameters: None
   - Returns: actor's information and success status.
-- Sample of request: ```curl http://127.0.0.1:5000/actors/2 -H "Content-Type: application/json"```
+- Sample of request: ```curl http://127.0.0.1:5000/actors/2 -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT_TOKEN>'```
 - Sample of response:
 ```
 {
@@ -308,7 +308,7 @@ Currently, the API will return two error types when requests fail:
   - Send a post request to add a new actor's information record.
   - Request parameters: Actors's name, age, gender, image.
   - Returns: The new movie, success status, total actors.
-- Sample of request: ```curl -X POST -H "Content-Type: application/json" -d '{"name":"Tom Holland", "age":"27", "gender":"Male", "image_link":"None"}' http://127.0.0.1:5000/actors/create```
+- Sample of request: ```curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT_TOKEN>' -d '{"name":"Tom Holland", "age":"27", "gender":"Male", "image_link":"None"}' http://127.0.0.1:5000/actors/create```
 - Sample of response:
 ```
 {
@@ -331,7 +331,7 @@ Currently, the API will return two error types when requests fail:
   - Request parameters: `actor_id` - integer
   - Returns: the id of the deleted actor, success value.
 - Sample of request to delete actor with id = 16:
-```curl -H '{"Content-Type: application/json"}' -X DELETE http://127.0.0.1:5000/actors/16```
+```curl -H '{"Content-Type: application/json"}' -H 'Authorization: Bearer <JWT_TOKEN>' -X DELETE http://127.0.0.1:5000/actors/16```
 - Sample of response:
 ```
 {
@@ -346,7 +346,7 @@ Currently, the API will return two error types when requests fail:
   - Request parameters: `actor_id` - integer and actor's info.
   - Returns: current actor, success value.
 - Sample of request to modify actor with id = 2:
-```curl -X POST -H "Content-Type: application/json" -d '{"name":"Jackie Chan", "age":"70", "gender":"Male", "image_link":"https://c4.wallpaperflare.com/wallpaper/518/546/557/jackie-chan-affair-men-actor-wallpaper-preview.jpg"}' http://127.0.0.1:5000/actors/2/edit```
+```curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT_TOKEN>' -d '{"name":"Jackie Chan", "age":"70", "gender":"Male", "image_link":"https://c4.wallpaperflare.com/wallpaper/518/546/557/jackie-chan-affair-men-actor-wallpaper-preview.jpg"}' http://127.0.0.1:5000/actors/2/edit```
 
 ```
 {
@@ -498,7 +498,3 @@ Currently, the API will return two error types when requests fail:
   "success": true
 }
 ```
-
-https://casting-agency-specifications.onrender.com/#access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkRpLURsbjRGdHlBQkJ5djZCSWR1MSJ9.eyJpc3MiOiJodHRwczovL2tob2l2dS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQ5YmRkYWNlMjNiMTQyNjg5MzUyZmFiIiwiYXVkIjoiY2FzdGluZy1hZ2VuY3kiLCJpYXQiOjE2ODc5NjUxOTMsImV4cCI6MTY4ODA1MTU5MywiYXpwIjoiR0JBV0hrd0ZBdmVMZjI4aXU5UDlyUXZZbTNRMEV4NkciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTo6YWN0b3JzIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiLCJwb3N0Om1vdmllcyJdfQ.jibJ99ihU_-JWTp639WArK58YU7-4gf92_sFlXbXjbCoOrZAL8WekDJApH8lepyM3m-iiA3oYlv-cyIiPQo-AiMJ2yMVWfy_qVfRnmeNLj5_jfC74xs7O-ruaYCINdCg4SESXK5RGHzGN8mYHrY0M5tfT44ddrEJTCHTGkvdQo7YFd02Rt3Fi7uccYp1v4-nWQH8K91TrBQ1_CraWt-7TsyzB36ed9WZaz57aiOQnRBf3LDyfNBhWx45Q9X8aE6crLHye6ZJOn-yEqOyjvE7PyNe4y2duWzrqfgUw2zn0Nn9baq4y5w3ZiB9WhfmzOnRoU46CDjX2VyBbl-XR6bc3g&expires_in=86400&token_type=Bearer
-
-curl http://127.0.0.1:5000/actors -H '{"Content-Type: application/json", "Authorization: Bearer <eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkRpLURsbjRGdHlBQkJ5djZCSWR1MSJ9.eyJpc3MiOiJodHRwczovL2tob2l2dS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQ5YmRkYWNlMjNiMTQyNjg5MzUyZmFiIiwiYXVkIjoiY2FzdGluZy1hZ2VuY3kiLCJpYXQiOjE2ODc5NjUxOTMsImV4cCI6MTY4ODA1MTU5MywiYXpwIjoiR0JBV0hrd0ZBdmVMZjI4aXU5UDlyUXZZbTNRMEV4NkciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTo6YWN0b3JzIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiLCJwb3N0Om1vdmllcyJdfQ.jibJ99ihU_-JWTp639WArK58YU7-4gf92_sFlXbXjbCoOrZAL8WekDJApH8lepyM3m-iiA3oYlv-cyIiPQo-AiMJ2yMVWfy_qVfRnmeNLj5_jfC74xs7O-ruaYCINdCg4SESXK5RGHzGN8mYHrY0M5tfT44ddrEJTCHTGkvdQo7YFd02Rt3Fi7uccYp1v4-nWQH8K91TrBQ1_CraWt-7TsyzB36ed9WZaz57aiOQnRBf3LDyfNBhWx45Q9X8aE6crLHye6ZJOn-yEqOyjvE7PyNe4y2duWzrqfgUw2zn0Nn9baq4y5w3ZiB9WhfmzOnRoU46CDjX2VyBbl-XR6bc3g>}'

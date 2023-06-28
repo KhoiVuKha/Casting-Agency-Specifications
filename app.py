@@ -89,7 +89,7 @@ def create_app(test_config=None):
     # ----------------------------------------------------------------
     @app.route("/actors")
     @requires_auth("get:actors")
-    def actors():
+    def actors(jwt):
         data = Actor.query.order_by(Actor.id).all()
 
         if request.headers.get("Content-Type") == "application/json":
@@ -102,7 +102,7 @@ def create_app(test_config=None):
     # ----------------------------------------------------------------
     @app.route("/actors/search", methods=["POST"])
     @requires_auth("post:actors")
-    def search_actors():
+    def search_actors(jwt):
         if request.headers.get("Content-Type") == "application/json":
             body = request.get_json()
             search_term = body.get("search_term", None)
@@ -143,7 +143,7 @@ def create_app(test_config=None):
     # ----------------------------------------------------------------
     @app.route("/actors/<int:actor_id>")
     @requires_auth("get:actors")
-    def show_actor(actor_id):
+    def show_actor(jwt, actor_id):
         try:
             actor = Actor.query.get(actor_id)
             data = actor.to_dict()
@@ -174,7 +174,7 @@ def create_app(test_config=None):
 
     @app.route("/actors/create", methods=["POST"])
     @requires_auth("post:actors")
-    def create_actor_submission():
+    def create_actor_submission(jwt):
         actor = Actor()
         if request.headers.get("Content-Type") == "application/json":
             body = request.get_json()
@@ -229,7 +229,7 @@ def create_app(test_config=None):
     # ----------------------------------------------------------------
     @app.route("/actors/<actor_id>", methods=["DELETE"])
     @requires_auth("delete:actors")
-    def delete_actor(actor_id):
+    def delete_actor(jwt, actor_id):
         try:
             actor = Actor.query.get(actor_id)
             actor_name = actor.name
@@ -262,7 +262,7 @@ def create_app(test_config=None):
 
     @app.route("/actors/<int:actor_id>/edit", methods=["POST"])
     @requires_auth("patch:actors")
-    def edit_actor_submission(actor_id):
+    def edit_actor_submission(jwt, actor_id):
         actor = Actor.query.get(actor_id)
         if request.headers.get("Content-Type") == "application/json":
             body = request.get_json()
