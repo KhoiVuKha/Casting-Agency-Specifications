@@ -313,7 +313,7 @@ def create_app(test_config=None):
     # ----------------------------------------------------------------
     @app.route("/movies")
     @requires_auth("get:movies")
-    def movies():
+    def movies(jwt):
         data = Movie.query.order_by(Movie.id).all()
 
         if request.headers.get("Content-Type") == "application/json":
@@ -326,7 +326,7 @@ def create_app(test_config=None):
     # ----------------------------------------------------------------
     @app.route("/movies/search", methods=["POST"])
     @requires_auth("post:movies")
-    def search_movies():
+    def search_movies(jwt):
         if request.headers.get("Content-Type") == "application/json":
             body = request.get_json()
             search_term = body.get("search_term", None)
@@ -372,7 +372,7 @@ def create_app(test_config=None):
     # ----------------------------------------------------------------
     @app.route("/movies/<int:movie_id>")
     @requires_auth("get:movies")
-    def show_movie(movie_id):
+    def show_movie(jwt, movie_id):
         try:
             movie = Movie.query.get(movie_id)
             data = movie.to_dict()
@@ -398,7 +398,7 @@ def create_app(test_config=None):
 
     @app.route("/movies/create", methods=["POST"])
     @requires_auth("post:movies")
-    def create_movie_submission():
+    def create_movie_submission(jwt):
         movie = Movie()
         if request.headers.get("Content-Type") == "application/json":
             body = request.get_json()
@@ -446,7 +446,7 @@ def create_app(test_config=None):
     # ----------------------------------------------------------------
     @app.route("/movies/<movie_id>", methods=["DELETE"])
     @requires_auth("delete:movies")
-    def delete_movie(movie_id):
+    def delete_movie(jwt, movie_id):
         try:
             movie = Movie.query.get(movie_id)
             movie_title = movie.title
@@ -479,7 +479,7 @@ def create_app(test_config=None):
 
     @app.route("/movies/<int:movie_id>/edit", methods=["POST"])
     @requires_auth("patch:movies")
-    def edit_movie_submission(movie_id):
+    def edit_movie_submission(jwt, movie_id):
         movie = Movie.query.get(movie_id)
         if request.headers.get("Content-Type") == "application/json":
             body = request.get_json()

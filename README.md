@@ -368,7 +368,7 @@ Currently, the API will return two error types when requests fail:
   - Fetches all movie's information
   - Request parameters: None
   - Returns: list of actors and success status.
-- Sample of request: ```curl http://127.0.0.1:5000/movies -H "Content-Type: application/json"```
+- Sample of request: ```curl http://127.0.0.1:5000/movies -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT_TOKEN>'```
 - Sample of response:
 ```
 {
@@ -402,7 +402,7 @@ Currently, the API will return two error types when requests fail:
   - Request parameters: search_term.
   - Returns: (list of) movie(s) that related to search term, total number of movies match, success status.
 - Sample of request: 
-```curl http://127.0.0.1:5000/movies/search -X POST -H "Content-Type: application/json" -d '{"search_term": "kung fu"}'```
+```curl http://127.0.0.1:5000/movies/search -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT_TOKEN>' -d '{"search_term": "kung fu"}'```
 - Sample of response: when search_term = "chan"
 ```
 {
@@ -424,7 +424,7 @@ Currently, the API will return two error types when requests fail:
   - Fetches movie by id
   - Request parameters: None
   - Returns: movie's information and success status.
-- Sample of request: ```curl http://127.0.0.1:5000/movies/1 -H "Content-Type: application/json"```
+- Sample of request: ```curl http://127.0.0.1:5000/movies/1 -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT_TOKEN>'```
 - Sample of response:
 ```
 {
@@ -445,7 +445,7 @@ Currently, the API will return two error types when requests fail:
   - Send a post request to add a new movie's information record.
   - Request parameters: Movie's title, release_date, image_link.
   - Returns: The new movie, success status, total movies.
-- Sample of request: ```curl -X POST -H "Content-Type: application/json" -d '{"title":"Movie abc", "release_date":"31/05/2023", "gender":"Male", "image_link":"None"}' http://127.0.0.1:5000/movies/create```
+- Sample of request: ```curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer <JWT_TOKEN>' -d '{"title":"Movie abc", "release_date":"31/05/2023", "gender":"Male", "image_link":"None"}' http://127.0.0.1:5000/movies/create```
 - Sample of response:
 ```
 {
@@ -468,7 +468,7 @@ Currently, the API will return two error types when requests fail:
   - Request parameters: `movie_id` - integer
   - Returns: the id of the deleted movie, success value.
 - Sample of request to delete actor with id = 5:
-```curl -H '{"Content-Type: application/json"}' -X DELETE http://127.0.0.1:5000/movie/5```
+```curl -H '{"Content-Type: application/json"}' -H 'Authorization: Bearer <JWT_TOKEN>' -X DELETE http://127.0.0.1:5000/movies/5```
 - Sample of response:
 ```
 {
@@ -483,7 +483,7 @@ Currently, the API will return two error types when requests fail:
   - Request parameters: `movie_id` - integer and movie's info.
   - Returns: current movie, success value.
 - Sample of request to modify movie with id = 2:
-```curl -X POST -H "Content-Type: application/json" -d '{"title":"Kung Fu Panda 1", "release_date":"28/12/2009", "image_link":"https://www.intofilm.org/intofilm-production/7019/scaledcropped/970x546/resources/7019/kung-fu-panda-2-ep-dreamworks-animation.jpg"}' http://127.0.0.1:5000/movies/2/edit```
+```curl -X POST -H 'Content-Type: application/json' -d '{"title":"Kung Fu Panda 1", "release_date":"28/12/2009", "image_link":"https://www.intofilm.org/intofilm-production/7019/scaledcropped/970x546/resources/7019/kung-fu-panda-2-ep-dreamworks-animation.jpg"}' http://127.0.0.1:5000/movies/2/edit -H 'Authorization: Bearer <JWT_TOKEN>'```
 
 ```
 {
