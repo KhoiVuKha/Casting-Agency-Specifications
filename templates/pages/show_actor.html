@@ -27,38 +27,37 @@
 
 <section>
 	<button type="submit" onclick="editClickHandler(this)" data-id="{{ actor.id }}" class="btn btn-primary btn-lg"
-			style="width: 200px;">Edit Actor</button>
+		style="width: 200px;">Edit Actor</button>
 	<button type="submit" onclick="deleteClickHandler(this)" data-id="{{ actor.id }}" class="btn btn-primary btn-lg"
-			style="width: 200px;">Delete Actor</button>
+		style="width: 200px;">Delete Actor</button>
 </section>
 <script>
 	function editClickHandler(e) {
-			console.log('clicked')
-			const actorId = e.dataset.id;
-			fetch(`/actors/${actorId}/edit`, {
-					method: 'GET'
+		console.log('clicked')
+		const actorId = e.dataset.id;
+		fetch(`/actors/${actorId}/edit`, {
+			method: 'GET'
+		})
+			.then(function () {
+				window.location.href = `/actors/${actorId}/edit`;
 			})
-					.then(function () {
-							window.location.href = `/actors/${actorId}/edit`;
-					})
-					.catch(function (e) {
-							console.log('error', e)
-					})
+			.catch(function (e) {
+				console.log('error', e)
+			})
 	}
 
 	function deleteClickHandler(e) {
-			console.log('clicked')
-			const actorId = e.dataset.id;
-			fetch('/actors/' + actorId, {
-					method: 'DELETE'
+		console.log('clicked')
+		const actorId = e.dataset.id;
+		fetch('/actors/' + actorId, {
+			method: 'DELETE'
+		})
+			.then(function () {
+				window.location.href = `/actors`;
 			})
-					.then(function () {
-							window.location.href = `/actors`;
-					})
-					.catch(function (e) {
-							console.log('error', e)
-					})
+			.catch(function (e) {
+				console.log('error', e)
+			})
 	}
 </script>
 {% endblock %}
-

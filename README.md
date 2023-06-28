@@ -158,3 +158,317 @@ Navigate to project homepage [http://127.0.0.1:5000/](http://127.0.0.1:5000/) or
   - `using pip install --upgrade flask-moment`
   - `Using pip install Werkzeug==2.0.0`
   - `Using pip uninstall Flask and then pip install flask==2.0.3`
+
+## API Reference
+
+### Getting Started
+
+- Base URL: At present this app can only be run locally and is not hosted as a base URL. The backend app is hosted at the default, http://127.0.0.1:5000/, which is set as a proxy in the frontend configuration.
+- Authentication: auth0.
+
+### Error Handling
+Errors are returned as JSON objects in the following format:
+
+```
+{
+    "success": False, 
+    "error": 404,
+    "message": "Not Found"
+}
+```
+
+Currently, the API will return two error types when requests fail:
+- 400: Bad Request
+- 401: Unauthorized
+- 404: Not Found
+- 405: Method not allowed
+- 422: Unprocessable
+- 500: Internal server error
+
+
+### Endpoints
+
+#### GET '/actors'
+- General: Fetch all actors
+  - Fetches all actor's information
+  - Request parameters: None
+  - Returns: list of actors and success status.
+- Sample of request: ```curl http://127.0.0.1:5000/actors -H "Content-Type: application/json" ```
+- Sample of response:
+```
+{
+  "actors": [
+    {
+      "age": "69", 
+      "gender": "{Male}", 
+      "id": 2, 
+      "image_link": "https://c4.wallpaperflare.com/wallpaper/518/546/557/jackie-chan-affair-men-actor-wallpaper-preview.jpg", 
+      "name": "Jackie Chan"
+    }, 
+    {
+      "age": "61", 
+      "gender": "{Male}", 
+      "id": 3, 
+      "image_link": "https://www.goldderby.com/wp-content/uploads/2022/05/top-gun-maverick.jpg", 
+      "name": "Tom Cruise"
+    }, 
+    {
+      "age": "47", 
+      "gender": "{Female}", 
+      "id": 12, 
+      "image_link": "https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcQjMLlgBjjXiBcXkBfj8ioAVD9JRbLbvFChl24qgBZMd-uLMhNZMEqA-lC_CxnJS1S1f8haDnRBBehf-l4", 
+      "name": "Angelina Jolie"
+    }, 
+    {
+      "age": "59", 
+      "gender": "{Male}", 
+      "id": 13, 
+      "image_link": "https://www.thewikifeed.com/wp-content/uploads/2021/11/brad-pitt-1.jpg", 
+      "name": "Brad Pitt"
+    }
+  ], 
+  "success": true
+}
+```
+
+#### POST '/actors/search'
+- General: Search for actor by actor's name.
+  - Sends a post request in order to search for actor by search term (actor's name)
+  - Request parameters: search_term.
+  - Returns: (list of) actor(s) that related to search term, total number of actors match, success status.
+- Sample of request: 
+```curl http://127.0.0.1:5000/actors/search -X POST -H "Content-Type: application/json" -d '{"search_term": "chan"}'```
+- Sample of response: when search_term = "chan"
+```
+{
+  "actors": [
+    {
+      "age": "69", 
+      "gender": "{Male}", 
+      "id": 2, 
+      "image_link": "https://c4.wallpaperflare.com/wallpaper/518/546/557/jackie-chan-affair-men-actor-wallpaper-preview.jpg", 
+      "name": "Jackie Chan"
+    }
+  ], 
+  "success": true, 
+  "total": 1
+}
+```
+
+#### GET '/actors/id'
+- General: Fetch actor by id
+  - Fetches actor by id
+  - Request parameters: None
+  - Returns: actor's information and success status.
+- Sample of request: ```curl http://127.0.0.1:5000/actors/2 -H "Content-Type: application/json"```
+- Sample of response:
+```
+{
+  "actor": [
+    {
+      "age": "69", 
+      "gender": "{Male}", 
+      "id": 2, 
+      "image_link": "https://c4.wallpaperflare.com/wallpaper/518/546/557/jackie-chan-affair-men-actor-wallpaper-preview.jpg", 
+      "name": "Jackie Chan"
+    }
+  ], 
+  "success": true
+}
+```
+
+#### POST '/actors/create'
+- General: Add a new actor's information record.
+  - Send a post request to add a new actor's information record.
+  - Request parameters: Actors's name, age, gender, image.
+  - Returns: The new movie, success status, total actors.
+- Sample of request: ```curl -X POST -H "Content-Type: application/json" -d '{"name":"Tom Holland", "age":"27", "gender":"Male", "image_link":"None"}' http://127.0.0.1:5000/actors/create```
+- Sample of response:
+```
+{
+  "actor": [
+    {
+      "age": "27", 
+      "gender": "Male", 
+      "id": 15, 
+      "image_link": "None", 
+      "name": "Tom Holland"
+    }
+  ], 
+  "success": true
+}
+```
+
+#### DELETE '/actors/${id}'
+- General: Delete actor by id.
+  - Deletes a specified actor using the id of the actor
+  - Request parameters: `actor_id` - integer
+  - Returns: the id of the deleted actor, success value.
+- Sample of request to delete actor with id = 16:
+```curl -H '{"Content-Type: application/json"}' -X DELETE http://127.0.0.1:5000/actors/16```
+- Sample of response:
+```
+{
+  "actor_id": "16", 
+  "success": true
+}
+```
+
+#### POST '/actors/${id}/edit'
+- General: Update actor by id.
+  - Update some information of an actor based on a payload
+  - Request parameters: `actor_id` - integer and actor's info.
+  - Returns: current actor, success value.
+- Sample of request to modify actor with id = 2:
+```curl -X POST -H "Content-Type: application/json" -d '{"name":"Jackie Chan", "age":"70", "gender":"Male", "image_link":"https://c4.wallpaperflare.com/wallpaper/518/546/557/jackie-chan-affair-men-actor-wallpaper-preview.jpg"}' http://127.0.0.1:5000/actors/2/edit```
+
+```
+{
+  "actor": [
+    {
+      "age": "70", 
+      "gender": "Male", 
+      "id": 2, 
+      "image_link": "https://c4.wallpaperflare.com/wallpaper/518/546/557/jackie-chan-affair-men-actor-wallpaper-preview.jpg", 
+      "name": "Jackie Chan"
+    }
+  ], 
+  "success": true
+}
+```
+
+#### GET '/movies'
+- General: Fetch all movies
+  - Fetches all movie's information
+  - Request parameters: None
+  - Returns: list of actors and success status.
+- Sample of request: ```curl http://127.0.0.1:5000/movies -H "Content-Type: application/json"```
+- Sample of response:
+```
+{
+  "movies": [
+    {
+      "id": 1, 
+      "image_link": "https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/863E75A035911DBA10F8D7EE1E433A12A1BF4915670B66597AC31C585A291942/scale?width=1200&aspectRatio=1.78&format=jpeg", 
+      "release_date": "28/12/2019", 
+      "title": "Avengers: Endgame"
+    }, 
+    {
+      "id": 2, 
+      "image_link": "https://www.intofilm.org/intofilm-production/7019/scaledcropped/970x546/resources/7019/kung-fu-panda-2-ep-dreamworks-animation.jpg", 
+      "release_date": "28/12/2008", 
+      "title": "Kung Fu Panda"
+    }, 
+    {
+      "id": 3, 
+      "image_link": "https://m.media-amazon.com/images/I/814FWjSQFfL._RI_.jpg", 
+      "release_date": "31/10/2010", 
+      "title": "The Walking Dead"
+    }
+  ], 
+  "success": true
+}
+```
+
+#### POST '/movies/search'
+- General: Search for movie by movie's name.
+  - Sends a post request in order to search for movie by search term (movie's name)
+  - Request parameters: search_term.
+  - Returns: (list of) movie(s) that related to search term, total number of movies match, success status.
+- Sample of request: 
+```curl http://127.0.0.1:5000/movies/search -X POST -H "Content-Type: application/json" -d '{"search_term": "kung fu"}'```
+- Sample of response: when search_term = "chan"
+```
+{
+  "movies": [
+    {
+      "id": 2, 
+      "image_link": "https://www.intofilm.org/intofilm-production/7019/scaledcropped/970x546/resources/7019/kung-fu-panda-2-ep-dreamworks-animation.jpg", 
+      "release_date": "28/12/2008", 
+      "title": "Kung Fu Panda"
+    }
+  ], 
+  "success": true, 
+  "total": 1
+}
+```
+
+#### GET '/movies/id'
+- General: Fetch movie by id
+  - Fetches movie by id
+  - Request parameters: None
+  - Returns: movie's information and success status.
+- Sample of request: ```curl http://127.0.0.1:5000/movies/1 -H "Content-Type: application/json"```
+- Sample of response:
+```
+{
+  "movie": [
+    {
+      "id": 1, 
+      "image_link": "https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/863E75A035911DBA10F8D7EE1E433A12A1BF4915670B66597AC31C585A291942/scale?width=1200&aspectRatio=1.78&format=jpeg", 
+      "release_date": "28/12/2019", 
+      "title": "Avengers: Endgame"
+    }
+  ], 
+  "success": true
+}
+```
+
+#### POST '/movies/create'
+- General: Add a new movie's information record.
+  - Send a post request to add a new movie's information record.
+  - Request parameters: Movie's title, release_date, image_link.
+  - Returns: The new movie, success status, total movies.
+- Sample of request: ```curl -X POST -H "Content-Type: application/json" -d '{"title":"Movie abc", "release_date":"31/05/2023", "gender":"Male", "image_link":"None"}' http://127.0.0.1:5000/movies/create```
+- Sample of response:
+```
+{
+  "movie": [
+    {
+      "id": 6, 
+      "image_link": "None", 
+      "release_date": "31/05/2023", 
+      "title": "Movie abc"
+    }
+  ], 
+  "success": true, 
+  "total": 5
+}
+```
+
+#### DELETE '/movies/${id}'
+- General: Delete movie by id.
+  - Deletes a specified movie using the id of the movie
+  - Request parameters: `movie_id` - integer
+  - Returns: the id of the deleted movie, success value.
+- Sample of request to delete actor with id = 5:
+```curl -H '{"Content-Type: application/json"}' -X DELETE http://127.0.0.1:5000/movie/5```
+- Sample of response:
+```
+{
+  "movie_id": "5", 
+  "success": true
+}
+```
+
+#### POST '/movies/${id}/edit'
+- General: Update movie by id.
+  - Update some information of a movie based on a payload
+  - Request parameters: `movie_id` - integer and movie's info.
+  - Returns: current movie, success value.
+- Sample of request to modify movie with id = 2:
+```curl -X POST -H "Content-Type: application/json" -d '{"title":"Kung Fu Panda 1", "release_date":"28/12/2009", "image_link":"https://www.intofilm.org/intofilm-production/7019/scaledcropped/970x546/resources/7019/kung-fu-panda-2-ep-dreamworks-animation.jpg"}' http://127.0.0.1:5000/movies/2/edit```
+
+```
+{
+  "movie": [
+    {
+      "id": 2, 
+      "image_link": "https://www.intofilm.org/intofilm-production/7019/scaledcropped/970x546/resources/7019/kung-fu-panda-2-ep-dreamworks-animation.jpg", 
+      "release_date": "28/12/2009", 
+      "title": "Kung Fu Panda 1"
+    }
+  ], 
+  "success": true
+}
+```

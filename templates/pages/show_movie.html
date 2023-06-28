@@ -24,38 +24,37 @@
 
 <section>
 	<button type="submit" onclick="editClickHandler(this)" data-id="{{ movie.id }}" class="btn btn-primary btn-lg"
-			style="width: 200px;">Edit Movie</button>
+		style="width: 200px;">Edit Movie</button>
 	<button type="submit" onclick="deleteClickHandler(this)" data-id="{{ movie.id }}" class="btn btn-primary btn-lg"
-			style="width: 200px;">Delete Movie</button>
+		style="width: 200px;">Delete Movie</button>
 </section>
 <script>
 	function editClickHandler(e) {
-			console.log('clicked')
-			const movieId = e.dataset.id;
-			fetch(`/movies/${movieId}/edit`, {
-					method: 'GET'
+		console.log('clicked')
+		const movieId = e.dataset.id;
+		fetch(`/movies/${movieId}/edit`, {
+			method: 'GET'
+		})
+			.then(function () {
+				window.location.href = `/movies/${movieId}/edit`;
 			})
-					.then(function () {
-							window.location.href = `/movies/${movieId}/edit`;
-					})
-					.catch(function (e) {
-							console.log('error', e)
-					})
+			.catch(function (e) {
+				console.log('error', e)
+			})
 	}
 
 	function deleteClickHandler(e) {
-			console.log('clicked')
-			const movieId = e.dataset.id;
-			fetch('/movies/' + movieId, {
-					method: 'DELETE'
+		console.log('clicked')
+		const movieId = e.dataset.id;
+		fetch('/movies/' + movieId, {
+			method: 'DELETE'
+		})
+			.then(function () {
+				window.location.href = `/movies`;
 			})
-					.then(function () {
-							window.location.href = `/movies`;
-					})
-					.catch(function (e) {
-							console.log('error', e)
-					})
+			.catch(function (e) {
+				console.log('error', e)
+			})
 	}
 </script>
 {% endblock %}
-
