@@ -142,15 +142,41 @@ source env/Scripts/activate
 pip install -r requirements.txt
 ```
 
-5. **Run the development server:**
+5. **Set up environment:**
+Note that the main database was deployed in render server.
 ```
-export FLASK_APP=myapp
-export FLASK_ENV=development # enables debug mode
+chmod +x setup.sh
+source setup.sh
+```
+
+6. **Run the development server locally:**
+```
 python3 app.py
 ```
 
-6. **Verify on the Browser**<br>
-Navigate to project homepage [http://127.0.0.1:5000/](http://127.0.0.1:5000/) or [http://localhost:5000](http://localhost:5000) 
+7. **Verify on the Browser**<br>
+- For Development (Run app locally):
+Navigate to project homepage [http://127.0.0.1:5000/](http://127.0.0.1:5000/) or [http://localhost:5000](http://localhost:5000)
+
+- For users (Run app deployed in render server): https://casting-agency-specifications.onrender.com/.
+Please login as following roles (User name and password provided in setup.sh file):
+  - Casting Assistant
+    - Can view actors and movies
+  - Casting Director
+    - All permissions a Casting Assistant has and…
+    - Add or delete an actor from the database
+    - Modify actors or movies
+  - Executive Producer
+    - All permissions a Casting Director has and…
+    - Add or delete a movie from the database
+
+7. **Run test**
+```
+dropdb casting_agency_test # (optional) Drop if it exists
+createdb casting_agency_test 
+psql -U postgres -d casting_agency_test < casting_agency_test.sql
+python3 test_app.py
+```
 
 ## Troubleshooting:
 - If you encounter any dependency errors, please ensure that you are using Python 3.9 or lower.
@@ -193,7 +219,7 @@ Currently, the API will return two error types when requests fail:
   - Fetches all actor's information
   - Request parameters: None
   - Returns: list of actors and success status.
-- Sample of request: ```curl http://127.0.0.1:5000/actors -H "Content-Type: application/json" ```
+- Sample of request: ```curl http://127.0.0.1:5000/actors -H "Content-Type: application/json" -H "Authorization: Bearer {TOKEN}"```
 - Sample of response:
 ```
 {
@@ -472,3 +498,7 @@ Currently, the API will return two error types when requests fail:
   "success": true
 }
 ```
+
+https://casting-agency-specifications.onrender.com/#access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkRpLURsbjRGdHlBQkJ5djZCSWR1MSJ9.eyJpc3MiOiJodHRwczovL2tob2l2dS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQ5YmRkYWNlMjNiMTQyNjg5MzUyZmFiIiwiYXVkIjoiY2FzdGluZy1hZ2VuY3kiLCJpYXQiOjE2ODc5NjUxOTMsImV4cCI6MTY4ODA1MTU5MywiYXpwIjoiR0JBV0hrd0ZBdmVMZjI4aXU5UDlyUXZZbTNRMEV4NkciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTo6YWN0b3JzIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiLCJwb3N0Om1vdmllcyJdfQ.jibJ99ihU_-JWTp639WArK58YU7-4gf92_sFlXbXjbCoOrZAL8WekDJApH8lepyM3m-iiA3oYlv-cyIiPQo-AiMJ2yMVWfy_qVfRnmeNLj5_jfC74xs7O-ruaYCINdCg4SESXK5RGHzGN8mYHrY0M5tfT44ddrEJTCHTGkvdQo7YFd02Rt3Fi7uccYp1v4-nWQH8K91TrBQ1_CraWt-7TsyzB36ed9WZaz57aiOQnRBf3LDyfNBhWx45Q9X8aE6crLHye6ZJOn-yEqOyjvE7PyNe4y2duWzrqfgUw2zn0Nn9baq4y5w3ZiB9WhfmzOnRoU46CDjX2VyBbl-XR6bc3g&expires_in=86400&token_type=Bearer
+
+curl http://127.0.0.1:5000/actors -H '{"Content-Type: application/json", "Authorization: Bearer <eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkRpLURsbjRGdHlBQkJ5djZCSWR1MSJ9.eyJpc3MiOiJodHRwczovL2tob2l2dS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQ5YmRkYWNlMjNiMTQyNjg5MzUyZmFiIiwiYXVkIjoiY2FzdGluZy1hZ2VuY3kiLCJpYXQiOjE2ODc5NjUxOTMsImV4cCI6MTY4ODA1MTU5MywiYXpwIjoiR0JBV0hrd0ZBdmVMZjI4aXU5UDlyUXZZbTNRMEV4NkciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTo6YWN0b3JzIiwiZGVsZXRlOm1vdmllcyIsImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIiwicGF0Y2g6YWN0b3JzIiwicGF0Y2g6bW92aWVzIiwicG9zdDphY3RvcnMiLCJwb3N0Om1vdmllcyJdfQ.jibJ99ihU_-JWTp639WArK58YU7-4gf92_sFlXbXjbCoOrZAL8WekDJApH8lepyM3m-iiA3oYlv-cyIiPQo-AiMJ2yMVWfy_qVfRnmeNLj5_jfC74xs7O-ruaYCINdCg4SESXK5RGHzGN8mYHrY0M5tfT44ddrEJTCHTGkvdQo7YFd02Rt3Fi7uccYp1v4-nWQH8K91TrBQ1_CraWt-7TsyzB36ed9WZaz57aiOQnRBf3LDyfNBhWx45Q9X8aE6crLHye6ZJOn-yEqOyjvE7PyNe4y2duWzrqfgUw2zn0Nn9baq4y5w3ZiB9WhfmzOnRoU46CDjX2VyBbl-XR6bc3g>}'

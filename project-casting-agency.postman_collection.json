@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "ec77b40e-1624-4366-8fb2-71b322526ac5",
+		"name": "project-casting-agency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26822356"
+	},
+	"item": [
+		{
+			"name": "Public",
+			"item": [
+				{
+					"name": "/actors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains drinks array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.drinks).to.be.an('array')",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkRpLURsbjRGdHlBQkJ5djZCSWR1MSJ9.eyJpc3MiOiJodHRwczovL2tob2l2dS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQ0MzQ4ZmY2NThiNzRkZmM4OTIzNmVlIiwiYXVkIjoiY29mZmVlLXNob3AiLCJpYXQiOjE2ODIzNDkyOTksImV4cCI6MTY4MjQzNTY5OSwiYXpwIjoiSEllMlplOEN3ODVDem1iMENMRFVxRmJvYXpNUFBYZU4iLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDpkcmlua3MtZGV0YWlsIl19.NoXvzsA2LuwXl-yp5cECiE9mDUHY9IAF_quciHtAYybY02zgTWdT-o5CuHMuIxUk0Pe4L5MjHtW2DkUMZ2XN-JT6dumMT6miLCTkZXc2qoAHtXoZUmMWlZYWPPhbVeUUQCyzhgrvX3DZkz_1KzVqGfwX9oOg66AU4AnaoWQQdkHhBeyHVN5bORX_5D4IdeUL3GEyWi-vAKoUVsJYpPLtgKY7SGuCwRs3lzcAJgOBlFd5NxMoMzWPvMxZVOsHPK_KPeotwz7XLMXw9Um-9YrpOHmqEHWSoNBcPa_wwfELT5Zu-gwAAWju9itYf-TGetYq_0n4mzpzN-Ebj2ZcaZWPVA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "/movies",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "/actors",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "/movies",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "/actors",
+					"request": {
+						"method": "PATCH",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "/movies",
+					"request": {
+						"method": "PATCH",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "/actors",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "/movies",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Casting Assistant",
+			"item": []
+		},
+		{
+			"name": "Casting Director",
+			"item": []
+		},
+		{
+			"name": "Executive Producer",
+			"item": []
+		}
+	]
+}

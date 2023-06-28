@@ -34,6 +34,9 @@ from operator import itemgetter  # for sorting lists of tuples
 # import database's models
 from models import db, setup_db, Actor, Movie
 
+# Auth0 authenticator
+from auth.auth import AuthError, requires_auth
+
 ITEMS_PER_PAGE = 10
 
 
@@ -62,7 +65,7 @@ def create_app(test_config=None):
     @app.after_request
     def after_request(response):
         response.headers.add(
-            "Access-Control-Allow-Headers", "Content-Type, Authorization"
+            "Access-Control-Allow-Headers", "Content-Type, Authorization, true"
         )
         response.headers.add(
             "Access-Control-Allow-Headers", "GET, POST, PATCH, DELETE, OPTIONS"
@@ -73,6 +76,10 @@ def create_app(test_config=None):
     # Controllers.
     # ----------------------------------------------------------------------------#
 
+    @app.route("/login")
+    def login():
+        return render_template("pages/login.html")
+
     # Home
     @app.route("/")
     def index():
@@ -81,6 +88,7 @@ def create_app(test_config=None):
     # Get actors
     # ----------------------------------------------------------------
     @app.route("/actors")
+    @requires_auth("get:actors")
     def actors():
         data = Actor.query.order_by(Actor.id).all()
 
@@ -93,6 +101,7 @@ def create_app(test_config=None):
     # Search for an actor
     # ----------------------------------------------------------------
     @app.route("/actors/search", methods=["POST"])
+    @requires_auth("post:actors")
     def search_actors():
         if request.headers.get("Content-Type") == "application/json":
             body = request.get_json()
@@ -133,6 +142,7 @@ def create_app(test_config=None):
     # Shows the actor page with the given actor_id
     # ----------------------------------------------------------------
     @app.route("/actors/<int:actor_id>")
+    @requires_auth("get:actors")
     def show_actor(actor_id):
         try:
             actor = Actor.query.get(actor_id)
@@ -156,12 +166,14 @@ def create_app(test_config=None):
     # Create Actor
     # ----------------------------------------------------------------
     @app.route("/actors/create", methods=["GET"])
+    @requires_auth("post:actors")
     def create_actor_form():
         # @todo: refactor
         form = ActorForm(request.form, meta={"csrf": False})
         return render_template("forms/new_actor.html", form=form)
 
     @app.route("/actors/create", methods=["POST"])
+    @requires_auth("post:actors")
     def create_actor_submission():
         actor = Actor()
         if request.headers.get("Content-Type") == "application/json":
@@ -216,6 +228,7 @@ def create_app(test_config=None):
     # Delete actor
     # ----------------------------------------------------------------
     @app.route("/actors/<actor_id>", methods=["DELETE"])
+    @requires_auth("delete:actors")
     def delete_actor(actor_id):
         try:
             actor = Actor.query.get(actor_id)
@@ -239,6 +252,7 @@ def create_app(test_config=None):
     # Update actor
     # ----------------------------------------------------------------
     @app.route("/actors/<int:actor_id>/edit", methods=["GET"])
+    @requires_auth("patch:actors")
     def edit_actor(actor_id):
         form = ActorForm(request.form)
         actor = Actor.query.get(actor_id)
@@ -247,6 +261,7 @@ def create_app(test_config=None):
         return render_template("forms/edit_actor.html", form=form, actor=actor)
 
     @app.route("/actors/<int:actor_id>/edit", methods=["POST"])
+    @requires_auth("patch:actors")
     def edit_actor_submission(actor_id):
         actor = Actor.query.get(actor_id)
         if request.headers.get("Content-Type") == "application/json":
@@ -256,7 +271,6 @@ def create_app(test_config=None):
             actor.gender = body.get("gender", None)
             actor.image_link = body.get("image_link", None)
         else:
-            print("aaaaa")
             form = ActorForm(request.form, meta={"csrf": False})
             if not form.validate():
                 message = []
@@ -298,6 +312,7 @@ def create_app(test_config=None):
     # Get Movies
     # ----------------------------------------------------------------
     @app.route("/movies")
+    @requires_auth("get:movies")
     def movies():
         data = Movie.query.order_by(Movie.id).all()
 
@@ -310,6 +325,7 @@ def create_app(test_config=None):
     # Search for an movie
     # ----------------------------------------------------------------
     @app.route("/movies/search", methods=["POST"])
+    @requires_auth("post:movies")
     def search_movies():
         if request.headers.get("Content-Type") == "application/json":
             body = request.get_json()
@@ -355,6 +371,7 @@ def create_app(test_config=None):
     # Show movie by ID
     # ----------------------------------------------------------------
     @app.route("/movies/<int:movie_id>")
+    @requires_auth("get:movies")
     def show_movie(movie_id):
         try:
             movie = Movie.query.get(movie_id)
@@ -374,11 +391,13 @@ def create_app(test_config=None):
     # Create Movie
     # ----------------------------------------------------------------
     @app.route("/movies/create", methods=["GET"])
+    @requires_auth("post:movies")
     def create_movie_form():
         form = MovieForm(request.form, meta={"csrf": False})
         return render_template("forms/new_movie.html", form=form)
 
     @app.route("/movies/create", methods=["POST"])
+    @requires_auth("post:movies")
     def create_movie_submission():
         movie = Movie()
         if request.headers.get("Content-Type") == "application/json":
@@ -426,6 +445,7 @@ def create_app(test_config=None):
 
     # ----------------------------------------------------------------
     @app.route("/movies/<movie_id>", methods=["DELETE"])
+    @requires_auth("delete:movies")
     def delete_movie(movie_id):
         try:
             movie = Movie.query.get(movie_id)
@@ -449,6 +469,7 @@ def create_app(test_config=None):
     # Update movie
     # ----------------------------------------------------------------
     @app.route("/movies/<int:movie_id>/edit", methods=["GET"])
+    @requires_auth("patch:movies")
     def edit_movie(movie_id):
         form = MovieForm(request.form)
         movie = Movie.query.get(movie_id)
@@ -457,6 +478,7 @@ def create_app(test_config=None):
         return render_template("forms/edit_movie.html", form=form, movie=movie)
 
     @app.route("/movies/<int:movie_id>/edit", methods=["POST"])
+    @requires_auth("patch:movies")
     def edit_movie_submission(movie_id):
         movie = Movie.query.get(movie_id)
         if request.headers.get("Content-Type") == "application/json":
@@ -543,6 +565,15 @@ def create_app(test_config=None):
                 {"success": False, "error": 500, "message": "internal server error"}
             ),
             500,
+        )
+
+    @app.errorhandler(AuthError)
+    def authorization_error(error):
+        return (
+            jsonify(
+                {"success": False, "error": error.status_code, "message": error.error}
+            ),
+            error.status_code,
         )
 
     if not app.debug:
