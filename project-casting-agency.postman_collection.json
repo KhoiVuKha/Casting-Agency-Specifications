@@ -71,7 +71,7 @@
 					"response": []
 				},
 				{
-					"name": "/actors?searchTerm=search_term",
+					"name": "/actors/search?search_term=search_term",
 					"event": [
 						{
 							"listen": "test",
@@ -90,15 +90,12 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"searchTerm\": \"Ben\"\n}",
+							"raw": "{\n    \"search_term\": \"Ben\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -106,17 +103,18 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/actors?searchTerm=Jeff",
+							"raw": "{{host}}/actors/search?search_term=Tom",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"actors"
+								"actors",
+								"search"
 							],
 							"query": [
 								{
-									"key": "searchTerm",
-									"value": "Jeff"
+									"key": "search_term",
+									"value": "Tom"
 								}
 							]
 						}
@@ -124,7 +122,7 @@
 					"response": []
 				},
 				{
-					"name": "/actors/id",
+					"name": "/actors/id/edit",
 					"event": [
 						{
 							"listen": "test",
@@ -139,7 +137,7 @@
 						}
 					],
 					"request": {
-						"method": "PATCH",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -151,20 +149,21 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/actors/1",
+							"raw": "{{host}}/actors/1/edit",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"actors",
-								"1"
+								"1",
+								"edit"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "/actors",
+					"name": "/actors/create",
 					"event": [
 						{
 							"listen": "test",
@@ -182,12 +181,13 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/actors",
+							"raw": "{{host}}/actors/create",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"actors"
+								"actors",
+								"create"
 							]
 						}
 					},
@@ -212,13 +212,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/actors/11",
+							"raw": "{{host}}/actors/2",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"actors",
-								"11"
+								"2"
 							]
 						}
 					},
@@ -296,7 +296,7 @@
 					"response": []
 				},
 				{
-					"name": "/movies?searchTerm=search_term",
+					"name": "/movies/search?search_term=search_term",
 					"event": [
 						{
 							"listen": "test",
@@ -315,15 +315,12 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"searchTerm\": \"Dune\"\n}",
+							"raw": "{\n    \"search_term\": \"None\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -331,17 +328,18 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/movies?searchTerm=Dune",
+							"raw": "{{host}}/movies/search?search_term=None",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"movies"
+								"movies",
+								"search"
 							],
 							"query": [
 								{
-									"key": "searchTerm",
-									"value": "Dune"
+									"key": "search_term",
+									"value": "None"
 								}
 							]
 						}
@@ -349,38 +347,7 @@
 					"response": []
 				},
 				{
-					"name": "/movies/id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 401\", function () {",
-									"    pm.response.to.have.status(401);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/movies/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"movies",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/movies",
+					"name": "/movies/id/edit",
 					"event": [
 						{
 							"listen": "test",
@@ -398,12 +365,45 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/movies",
+							"raw": "{{host}}/movies/1/edit",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"movies"
+								"movies",
+								"1",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/movies/create",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"create"
 							]
 						}
 					},
@@ -428,13 +428,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/movies/11",
+							"raw": "{{host}}/movies/2",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"movies",
-								"11"
+								"2"
 							]
 						}
 					},
@@ -445,222 +445,6 @@
 		{
 			"name": "casting assistant",
 			"item": [
-				{
-					"name": "/movies",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"value contains movies array\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.movies).to.be.an('array')",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/movies",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"movies"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/movies?searchTerm=search_term",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"value contains movies array\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.movies).to.be.an('array')",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"searchTerm\": \"Dune\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/movies?searchTerm=Dune",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"movies"
-							],
-							"query": [
-								{
-									"key": "searchTerm",
-									"value": "Dune"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/movies/id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"value contains movie object\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.movie).to.be.an('object')",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/movies/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"movies",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/movies/id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 403\", function () {",
-									"    pm.response.to.have.status(403);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/movies/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"movies",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/movies",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 403\", function () {",
-									"    pm.response.to.have.status(403);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/movies",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"movies"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/movies/id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 403\", function () {",
-									"    pm.response.to.have.status(403);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/movies/11",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"movies",
-								"11"
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "/actors",
 					"event": [
@@ -683,7 +467,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/actors",
 							"host": [
@@ -718,7 +508,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/actors/1",
 							"host": [
@@ -733,7 +529,7 @@
 					"response": []
 				},
 				{
-					"name": "/actors?searchTerm=search_term",
+					"name": "/actors/search?search_term=search_term",
 					"event": [
 						{
 							"listen": "test",
@@ -752,15 +548,28 @@
 							}
 						}
 					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
-						"header": [],
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkRpLURsbjRGdHlBQkJ5djZCSWR1MSJ9.eyJpc3MiOiJodHRwczovL2tob2l2dS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQ5YmRkYWNlMjNiMTQyNjg5MzUyZmFiIiwiYXVkIjoiY2FzdGluZy1hZ2VuY3kiLCJpYXQiOjE2ODgwMDcwOTEsImV4cCI6MTY4ODA5MzQ5MSwiYXpwIjoiR0JBV0hrd0ZBdmVMZjI4aXU5UDlyUXZZbTNRMEV4NkciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.fWETYKvi4AzPMDnloan6AtaFZv59d1uBjzkc2yhaIChtWCZYS-iqGWgdUxwcRjkYnJoBhcRVnAaASWtzGroPfc4pIWeE_rO1nEcPLw2hWvX9H7JzBdXLaBxGUrjz3f9sV82S-QQ1SH0cfSmeNLzrZulc07tYyRvZ88L7UGs-Q9v-gxSM4v22dt2H5ABJFEhP66wM9TqAwEGkn4233_Ru6I_dNEnW-5EXAOBPuLpCp0UdlHFPaexsRYmAF921qo1SQQpSeTmNPoR5jVvcQdJCxQh3e5AtlhgzSwx2grxZ4mIo_OnPZI0QM-Xz3XN0NNHyi2rlRzw5otHmli2fEb5s-w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"searchTerm\": \"Jeff\"\n}",
+							"raw": "{\n    \"search_term\": \"Tom\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -768,17 +577,18 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/actors?searchTerm=Jeff",
+							"raw": "{{host}}/actors/search?search_term=Tom",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"actors"
+								"actors",
+								"search"
 							],
 							"query": [
 								{
-									"key": "searchTerm",
-									"value": "Jeff"
+									"key": "search_term",
+									"value": "Tom"
 								}
 							]
 						}
@@ -786,7 +596,7 @@
 					"response": []
 				},
 				{
-					"name": "/actors/id",
+					"name": "/actors/create",
 					"event": [
 						{
 							"listen": "test",
@@ -801,7 +611,38 @@
 						}
 					],
 					"request": {
-						"method": "PATCH",
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/actors/create",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/id/edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -813,43 +654,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/actors/1",
+							"raw": "{{host}}/actors/1/edit",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"actors",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/actors",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 403\", function () {",
-									"    pm.response.to.have.status(403);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/actors",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"actors"
+								"1",
+								"edit"
 							]
 						}
 					},
@@ -874,20 +686,20 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/actors/11",
+							"raw": "{{host}}/actors/2",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"actors",
-								"11"
+								"2"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "/castings/",
+					"name": "/movies",
 					"event": [
 						{
 							"listen": "test",
@@ -897,9 +709,9 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"value contains casting array\", function () {",
+									"pm.test(\"value contains movies array\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.castings).to.be.an('array')",
+									"    pm.expect(jsonData.movies).to.be.an('array')",
 									"});"
 								],
 								"type": "text/javascript"
@@ -908,21 +720,27 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{host}}/castings",
+							"raw": "{{host}}/movies",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"castings"
+								"movies"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "/castings",
+					"name": "/movies/id",
 					"event": [
 						{
 							"listen": "test",
@@ -932,9 +750,113 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"value contains casting object\", function () {",
+									"pm.test(\"value contains movie object\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.casting).to.be.an('object')",
+									"    pm.expect(jsonData.movie).to.be.an('object')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/movies/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/search?search_term=search_term",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains movies array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.movies).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkRpLURsbjRGdHlBQkJ5djZCSWR1MSJ9.eyJpc3MiOiJodHRwczovL2tob2l2dS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQ5YmRkYWNlMjNiMTQyNjg5MzUyZmFiIiwiYXVkIjoiY2FzdGluZy1hZ2VuY3kiLCJpYXQiOjE2ODgwMDcwOTEsImV4cCI6MTY4ODA5MzQ5MSwiYXpwIjoiR0JBV0hrd0ZBdmVMZjI4aXU5UDlyUXZZbTNRMEV4NkciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.fWETYKvi4AzPMDnloan6AtaFZv59d1uBjzkc2yhaIChtWCZYS-iqGWgdUxwcRjkYnJoBhcRVnAaASWtzGroPfc4pIWeE_rO1nEcPLw2hWvX9H7JzBdXLaBxGUrjz3f9sV82S-QQ1SH0cfSmeNLzrZulc07tYyRvZ88L7UGs-Q9v-gxSM4v22dt2H5ABJFEhP66wM9TqAwEGkn4233_Ru6I_dNEnW-5EXAOBPuLpCp0UdlHFPaexsRYmAF921qo1SQQpSeTmNPoR5jVvcQdJCxQh3e5AtlhgzSwx2grxZ4mIo_OnPZI0QM-Xz3XN0NNHyi2rlRzw5otHmli2fEb5s-w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"search_term\": \"Avengers\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movies/search?search_term=Avengers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"search"
+							],
+							"query": [
+								{
+									"key": "search_term",
+									"value": "Avengers"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -944,52 +866,60 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "actor_id",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "movie_id",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "start_time",
-									"value": "2014-12-11 23:30:34",
-									"type": "text"
-								},
-								{
-									"key": "place",
-									"value": "22th Wall Street",
-									"type": "text"
-								}
-							]
-						},
 						"url": {
-							"raw": "{{host}}/castings",
+							"raw": "{{host}}/movies/create",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"castings"
+								"movies",
+								"create"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "/castings/id",
+					"name": "/movies/id/edit",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/movies/1/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"1",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {",
+									"    pm.response.to.have.status(403);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1000,13 +930,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/castings/1",
+							"raw": "{{host}}/movies/2",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"castings",
-								"1"
+								"movies",
+								"2"
 							]
 						}
 					},
@@ -1018,7 +948,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImhSd0R4YTRiTktIQ2E4NF9MVTBnLSJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtc3R1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NDNjZjhhZGI3YWRkMTVhODliNTU3ZmQiLCJhdWQiOiJjYXN0aW5nLWFnZW5jeSIsImlhdCI6MTY4Nzg5NjQ1MiwiZXhwIjoxNjg3OTgyODUyLCJhenAiOiIyTnFMTGYwbzBESnJoZ1lVT2hiU1dIdHRHV1BhTTdnSSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiYWRkOmNhc3RpbmdzIiwiZGVsZXRlOmNhc3RpbmdzIiwiZ2V0OmFjdG9ycyIsImdldDpjYXN0aW5ncyIsImdldDptb3ZpZXMiXX0.HAnkCN1ED1DFL8fVH_Tzeu8hudaqV18QQ-6P91JRD8hMnZxDgYeZQdsrG_WwR1P9BlDmKCeiY3BcSqA2D-WpU7V-CUZPNmCZx6acDoqGJWkjk45UsjMvyG3YcShIv9YaCp_tBQp-2w5uXb6_7J17p97hFiGbKm8jM8Pm4l6fiVBDyTEyQVyNF9ThKTs8owPtqw1TmXbgdwR4y8aaQ4HwrAWGkWVx74oNTCrF7Me43I8JrqtB4jABDj8pVET-RWz-qU5PzbsYnbhQniTZqmRchutGpuycFS0a8l9xCzM2gOGmQDYTpplZAqJgSg5uIEQvzo29kcA4a0Rpx75LgqIAKg",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkRpLURsbjRGdHlBQkJ5djZCSWR1MSJ9.eyJpc3MiOiJodHRwczovL2tob2l2dS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQ5YmRjZTE5MjAyNDk3NjU5MDE5NTcxIiwiYXVkIjoiY2FzdGluZy1hZ2VuY3kiLCJpYXQiOjE2ODgwMzExNzgsImV4cCI6MTY4ODExNzU3OCwiYXpwIjoiR0JBV0hrd0ZBdmVMZjI4aXU5UDlyUXZZbTNRMEV4NkciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImdldDphY3RvcnMiLCJnZXQ6bW92aWVzIl19.h_EWgmGSIyWI6P5WxMVZB8_GdHk_NDaE9zRRQVOB3qUFVyk27Psy8guOyDJNCo88dtwxrfs-Bqg416gotGfLPdjhJnEWrcXfTBW-A3RSOx4MhItp-K3EuDUUN1vKy7kjrMGQgKgrZOTX2sInIS6RBgtujGjZFw1IL5kWCfDYxNwCon83gzWVVcRtraiv5CPm-nq-hFJPs5BOek6A7rnF2gSE9zMZyVnyeS0JVR9LgiIirHoKKS-i4LjFx7RoM1HvXZ3lwocmKOWcEDBA_U78ZRjRjTe-BKijzeS2TSdlT_xULNBCQiJpT834-aqiOb20tEvRw_ixkp3LEIu1hk99zQ",
 						"type": "string"
 					}
 				]
@@ -1048,6 +978,323 @@
 			"name": "casting director",
 			"item": [
 				{
+					"name": "/actors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains actors array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.actors).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/actors",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains actor object\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.actor).to.be.an('object')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/actors/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/search?search_term=search_term",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains actors array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.actors).to.be.an('array')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"search_term\": \"Tom\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/actors/search?search_term=Tom",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"search"
+							],
+							"query": [
+								{
+									"key": "search_term",
+									"value": "Tom"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains actor object\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.actor).to.be.an('object')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkRpLURsbjRGdHlBQkJ5djZCSWR1MSJ9.eyJpc3MiOiJodHRwczovL2tob2l2dS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQ5YmRkYWNlMjNiMTQyNjg5MzUyZmFiIiwiYXVkIjoiY2FzdGluZy1hZ2VuY3kiLCJpYXQiOjE2ODgwMDcwOTEsImV4cCI6MTY4ODA5MzQ5MSwiYXpwIjoiR0JBV0hrd0ZBdmVMZjI4aXU5UDlyUXZZbTNRMEV4NkciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.fWETYKvi4AzPMDnloan6AtaFZv59d1uBjzkc2yhaIChtWCZYS-iqGWgdUxwcRjkYnJoBhcRVnAaASWtzGroPfc4pIWeE_rO1nEcPLw2hWvX9H7JzBdXLaBxGUrjz3f9sV82S-QQ1SH0cfSmeNLzrZulc07tYyRvZ88L7UGs-Q9v-gxSM4v22dt2H5ABJFEhP66wM9TqAwEGkn4233_Ru6I_dNEnW-5EXAOBPuLpCp0UdlHFPaexsRYmAF921qo1SQQpSeTmNPoR5jVvcQdJCxQh3e5AtlhgzSwx2grxZ4mIo_OnPZI0QM-Xz3XN0NNHyi2rlRzw5otHmli2fEb5s-w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Tom Holland",
+									"type": "text"
+								},
+								{
+									"key": "age",
+									"value": "26",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "Male",
+									"type": "text"
+								},
+								{
+									"key": "image_link",
+									"value": "https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcRx2_mC8SB1BHhvAL_wDw8EjvMrt1gTqr6CUsiPUJ-UgGrJmrTSo8Mt5fmwGqLUcnIh3ohgdfu6l5kNM4Q",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/actors/create",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/id/edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains actor object\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.actor).to.be.an('object')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Angelina Jolie",
+									"type": "text"
+								},
+								{
+									"key": "age",
+									"value": "48",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "Female",
+									"type": "text"
+								},
+								{
+									"key": "image_link",
+									"value": "https://media.allure.com/photos/647f876463cd1ef47aab9c88/1:1/w_2466,h_2466,c_limit/angelina%20jolie%20blonde%20hair%20chloe.jpg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/actors/1/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"1",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/actors/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/movies",
 					"event": [
 						{
@@ -1069,7 +1316,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/movies",
 							"host": [
@@ -1077,59 +1330,6 @@
 							],
 							"path": [
 								"movies"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/movies?searchTerm=search_term",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"value contains movies array\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.movies).to.be.an('array')",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"searchTerm\": \"Dune\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/movies?searchTerm=Dune",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"movies"
-							],
-							"query": [
-								{
-									"key": "searchTerm",
-									"value": "Dune"
-								}
 							]
 						}
 					},
@@ -1157,7 +1357,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/movies/1",
 							"host": [
@@ -1172,7 +1378,7 @@
 					"response": []
 				},
 				{
-					"name": "/movies/id",
+					"name": "/movies/search?search_term=search_term",
 					"event": [
 						{
 							"listen": "test",
@@ -1182,9 +1388,9 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(\"value contains movie array\", function () {",
+									"pm.test(\"value contains movies array\", function () {",
 									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.movie).to.be.an('object')",
+									"    pm.expect(jsonData.movies).to.be.an('array')",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1192,83 +1398,54 @@
 						}
 					],
 					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
+						"auth": {
+							"type": "bearer",
+							"bearer": [
 								{
-									"key": "director",
-									"value": "Seymour Huikerby",
-									"type": "text"
-								},
-								{
-									"key": "facebook_link",
-									"value": "http://google.com",
-									"type": "text"
-								},
-								{
-									"key": "genres",
-									"value": "Adventure",
-									"type": "text"
-								},
-								{
-									"key": "genres",
-									"value": "Sci-Fi",
-									"type": "text"
-								},
-								{
-									"key": "image_link",
-									"value": "http://google.com",
-									"type": "text"
-								},
-								{
-									"key": "name",
-									"value": "Dune",
-									"type": "text"
-								},
-								{
-									"key": "phone",
-									"value": "123412343",
-									"type": "text"
-								},
-								{
-									"key": "producer",
-									"value": "Dach-Streich",
-									"type": "text"
-								},
-								{
-									"key": "seeking_actor",
-									"value": "true",
-									"type": "text"
-								},
-								{
-									"key": "seeking_description",
-									"value": "Finding actors for Dune movie",
-									"type": "text"
-								},
-								{
-									"key": "website",
-									"value": "http://dune.com",
-									"type": "text"
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkRpLURsbjRGdHlBQkJ5djZCSWR1MSJ9.eyJpc3MiOiJodHRwczovL2tob2l2dS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQ5YmRkYWNlMjNiMTQyNjg5MzUyZmFiIiwiYXVkIjoiY2FzdGluZy1hZ2VuY3kiLCJpYXQiOjE2ODgwMDcwOTEsImV4cCI6MTY4ODA5MzQ5MSwiYXpwIjoiR0JBV0hrd0ZBdmVMZjI4aXU5UDlyUXZZbTNRMEV4NkciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.fWETYKvi4AzPMDnloan6AtaFZv59d1uBjzkc2yhaIChtWCZYS-iqGWgdUxwcRjkYnJoBhcRVnAaASWtzGroPfc4pIWeE_rO1nEcPLw2hWvX9H7JzBdXLaBxGUrjz3f9sV82S-QQ1SH0cfSmeNLzrZulc07tYyRvZ88L7UGs-Q9v-gxSM4v22dt2H5ABJFEhP66wM9TqAwEGkn4233_Ru6I_dNEnW-5EXAOBPuLpCp0UdlHFPaexsRYmAF921qo1SQQpSeTmNPoR5jVvcQdJCxQh3e5AtlhgzSwx2grxZ4mIo_OnPZI0QM-Xz3XN0NNHyi2rlRzw5otHmli2fEb5s-w",
+									"type": "string"
 								}
 							]
 						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"search_term\": \"Avengers\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/movies/1",
+							"raw": "{{host}}/movies/search?search_term=Avengers",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"movies",
-								"1"
+								"search"
+							],
+							"query": [
+								{
+									"key": "search_term",
+									"value": "Avengers"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "/movies",
+					"name": "/movies/create",
 					"event": [
 						{
 							"listen": "test",
@@ -1341,12 +1518,82 @@
 							]
 						},
 						"url": {
-							"raw": "{{host}}/movies",
+							"raw": "{{host}}/movies/create",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"movies"
+								"movies",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/id/edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"value contains movie array\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.movie).to.be.an('object')",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Kate Winslet",
+									"type": "text"
+								},
+								{
+									"key": "age",
+									"value": "47",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "Female",
+									"type": "text"
+								},
+								{
+									"key": "image_link",
+									"value": "https://cdn.britannica.com/38/130638-050-DBCE19EE/Kate-Winslet.jpg",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/movies/1/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"1",
+								"edit"
 							]
 						}
 					},
@@ -1371,505 +1618,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/movies/11",
+							"raw": "{{host}}/movies/3",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"movies",
-								"11"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/actors",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"value contains actors array\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.actors).to.be.an('array')",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/actors",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"actors"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/actors?searchTerm=search_term",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"value contains actors array\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.actors).to.be.an('array')",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"searchTerm\": \"Jeff\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/actors?searchTerm=Jeff",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"actors"
-							],
-							"query": [
-								{
-									"key": "searchTerm",
-									"value": "Jeff"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/actors/id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"value contains actor object\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.actor).to.be.an('object')",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/actors/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"actors",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/actors/id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"value contains actor object\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.actor).to.be.an('object')",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "age",
-									"value": "43",
-									"type": "text"
-								},
-								{
-									"key": "city",
-									"value": "Norman",
-									"type": "text"
-								},
-								{
-									"key": "genres",
-									"value": "Comedy",
-									"type": "text"
-								},
-								{
-									"key": "genres",
-									"value": "Drama",
-									"type": "text"
-								},
-								{
-									"key": "image_link",
-									"value": "http://google.com",
-									"type": "text"
-								},
-								{
-									"key": "name",
-									"value": "Arabela Lebbern",
-									"type": "text"
-								},
-								{
-									"key": "phone",
-									"value": "4056375359",
-									"type": "text"
-								},
-								{
-									"key": "seeking_description",
-									"value": "I want a movie",
-									"type": "text"
-								},
-								{
-									"key": "seeking_movie",
-									"value": "true",
-									"type": "text"
-								},
-								{
-									"key": "sex",
-									"value": "Male",
-									"type": "text"
-								},
-								{
-									"key": "state",
-									"value": "AL",
-									"type": "text"
-								},
-								{
-									"key": "website",
-									"value": "http://google.com",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{host}}/actors/1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"actors",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/actors",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"value contains actor object\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.actor).to.be.an('object')",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "age",
-									"value": "43",
-									"type": "text"
-								},
-								{
-									"key": "city",
-									"value": "Norman",
-									"type": "text"
-								},
-								{
-									"key": "genres",
-									"value": "Comedy",
-									"type": "text"
-								},
-								{
-									"key": "genres",
-									"value": "Drama",
-									"type": "text"
-								},
-								{
-									"key": "genres",
-									"value": "Romance",
-									"type": "text"
-								},
-								{
-									"key": "genres",
-									"value": "War",
-									"type": "text"
-								},
-								{
-									"key": "image_link",
-									"value": "http://google.com",
-									"type": "text"
-								},
-								{
-									"key": "name",
-									"value": "Arabela Lebbern",
-									"type": "text"
-								},
-								{
-									"key": "phone",
-									"value": "4056375359",
-									"type": "text"
-								},
-								{
-									"key": "seeking_description",
-									"value": "I want a movie",
-									"type": "text"
-								},
-								{
-									"key": "seeking_movie",
-									"value": "true",
-									"type": "text"
-								},
-								{
-									"key": "sex",
-									"value": "Male",
-									"type": "text"
-								},
-								{
-									"key": "state",
-									"value": "AL",
-									"type": "text"
-								},
-								{
-									"key": "website",
-									"value": "http://google.com",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{host}}/actors",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"actors"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/actors/id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/actors/11",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"actors",
-								"11"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/castings/",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"value contains castings array\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.castings).to.be.an('array')",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/castings",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"castings"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/castings",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"value contains casting object\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.casting).to.be.an('object')",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "actor_id",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "movie_id",
-									"value": "1",
-									"type": "text"
-								},
-								{
-									"key": "start_time",
-									"value": "2014-12-11 23:30:34",
-									"type": "text"
-								},
-								{
-									"key": "place",
-									"value": "23rd Lincon street",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{host}}/castings",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"castings"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/castings/id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/castings/11",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"castings",
-								"11"
+								"3"
 							]
 						}
 					},
@@ -1881,7 +1636,7 @@
 				"bearer": [
 					{
 						"key": "token",
-						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImhSd0R4YTRiTktIQ2E4NF9MVTBnLSJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtc3R1LnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NDNjZjg4OTQ1MDk0ZmI2ODFmN2ExY2QiLCJhdWQiOiJjYXN0aW5nLWFnZW5jeSIsImlhdCI6MTY4Nzg5NjQyMSwiZXhwIjoxNjg3OTgyODIxLCJhenAiOiIyTnFMTGYwbzBESnJoZ1lVT2hiU1dIdHRHV1BhTTdnSSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiYWRkOmFjdG9ycyIsImFkZDpjYXN0aW5ncyIsImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6Y2FzdGluZ3MiLCJnZXQ6YWN0b3JzIiwiZ2V0OmNhc3RpbmdzIiwiZ2V0Om1vdmllcyIsInVwZGF0ZTphY3RvcnMiLCJ1cGRhdGU6Y2FzdGluZyIsInVwZGF0ZTptb3ZpZXMiXX0.b7vsn8bHlwcULbWtNk6xviXnScI5yfpM_Mt0PkFrviEj7U-c_CqPJrPpQSG9CxLU1yJGJF4GYDXW5a_gxDGm_CizWFcdDgKzRZrhJhPqyRmTQeqtsPqSjqlknYOHbbuizjDambOcqSLnpyASecIFS1pXulGBnWJiGn28TaMHVayx3h_6C8fjcrhn2346ro0Ou_C2b_-X4aQdvOUjvuMf0RSnEdwXle7k0rfPOYvXcVebqMYjo3oQartIVyR05e5S1ieNxg3SRyjxkc2JDFnocMHKQPcK1dkhcNTwG5Nj-22xmLMCxlYhqpb_VGtSDPKsm3HX76O8YQ4IMXz6q3GBEQ",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkRpLURsbjRGdHlBQkJ5djZCSWR1MSJ9.eyJpc3MiOiJodHRwczovL2tob2l2dS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQ5YmRlNDgxYmJkY2NkZjYwYjdhN2MxIiwiYXVkIjoiY2FzdGluZy1hZ2VuY3kiLCJpYXQiOjE2ODgwMzEyODgsImV4cCI6MTY4ODExNzY4OCwiYXpwIjoiR0JBV0hrd0ZBdmVMZjI4aXU5UDlyUXZZbTNRMEV4NkciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyIsInBhdGNoOmFjdG9ycyIsInBhdGNoOm1vdmllcyIsInBvc3Q6YWN0b3JzIl19.nZt0Y-f12nJf60x8R0-zyI8jqdxgMB6lDddranFbqFNKR-gB3x1ubGYQI3G4fy9bSNixZ_ZMedaW9AXv2ozqDkCb_Fw73_0_3j36YjoAlJezV4hpLNODam9OSQLSDZkfGwhtgR-aZoAOP15EWI1Y2pQhABD04zmQUSBcIMeJoVvoO3Yq5JFVqnlT6mNGu6P27-yptMba73mFiv6hGcA8V8aWABdA_Fv_AkyTqXkZRkGH8-qACrs4HUwg4wY69X_WcwPsOBoF5ygN0S6T7P9_RtJEVE7OFBeVka0oz6fWN0rN5dpEfJmUVNXKME7S8xYxvh1nK3uw3U6fsY4w3iKS3Q",
 						"type": "string"
 					}
 				]
@@ -2215,16 +1970,26 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkRpLURsbjRGdHlBQkJ5djZCSWR1MSJ9.eyJpc3MiOiJodHRwczovL2tob2l2dS51cy5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NjQ5YmRkYWNlMjNiMTQyNjg5MzUyZmFiIiwiYXVkIjoiY2FzdGluZy1hZ2VuY3kiLCJpYXQiOjE2ODgwMDcwOTEsImV4cCI6MTY4ODA5MzQ5MSwiYXpwIjoiR0JBV0hrd0ZBdmVMZjI4aXU5UDlyUXZZbTNRMEV4NkciLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.fWETYKvi4AzPMDnloan6AtaFZv59d1uBjzkc2yhaIChtWCZYS-iqGWgdUxwcRjkYnJoBhcRVnAaASWtzGroPfc4pIWeE_rO1nEcPLw2hWvX9H7JzBdXLaBxGUrjz3f9sV82S-QQ1SH0cfSmeNLzrZulc07tYyRvZ88L7UGs-Q9v-gxSM4v22dt2H5ABJFEhP66wM9TqAwEGkn4233_Ru6I_dNEnW-5EXAOBPuLpCp0UdlHFPaexsRYmAF921qo1SQQpSeTmNPoR5jVvcQdJCxQh3e5AtlhgzSwx2grxZ4mIo_OnPZI0QM-Xz3XN0NNHyi2rlRzw5otHmli2fEb5s-w",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/actors/11",
+							"raw": "{{host}}/actors/2",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"actors",
-								"11"
+								"2"
 							]
 						}
 					},
@@ -2576,13 +2341,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/movies/1",
+							"raw": "{{host}}/movies/2",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"movies",
-								"1"
+								"2"
 							]
 						}
 					},
