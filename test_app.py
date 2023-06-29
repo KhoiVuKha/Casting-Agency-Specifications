@@ -191,7 +191,7 @@ class CastingAgencyTestCase(unittest.TestCase):
             "name": "Jackie Chan",
             "age": 69,
             "gender": "Male",
-            "image_lick": "",
+            "image_link": "",
         }
 
         res = self.client().post(
@@ -207,7 +207,7 @@ class CastingAgencyTestCase(unittest.TestCase):
             "name": "Jackie Chan",
             "age": 69,
             "gender": "Male",
-            "image_lick": "",
+            "image_link": "",
         }
 
         res = self.client().post("/actors/create", json=actor_info, headers="")
@@ -220,7 +220,7 @@ class CastingAgencyTestCase(unittest.TestCase):
         info = {
             "title": "New movie",
             "release_date": "31/05/2023",
-            "image_lick": "",
+            "image_link": "",
         }
 
         res = self.client().post("/movies/create", json=info, headers=self.AUTH_HEADER)
@@ -233,7 +233,7 @@ class CastingAgencyTestCase(unittest.TestCase):
         info = {
             "title": "New movie",
             "release_date": "31/05/2023",
-            "image_lick": "",
+            "image_link": "",
         }
 
         res = self.client().post("/movies/create", json=info, headers="")
@@ -296,14 +296,6 @@ class CastingAgencyTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 405)
         self.assertEqual(data["message"], "method not allowed")
 
-    # def test_delete_actor_200(self):
-    #     res = self.client().delete("/actors/2", headers=self.AUTH_HEADER)
-    #     data = json.loads(res.data)
-
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(data["success"], True)
-    #     self.assertEqual(data["actor_id"], 2)
-
     def test_delete_actor_401(self):
         res = self.client().delete("/actors/2", headers="")
         data = json.loads(res.data)
@@ -311,20 +303,28 @@ class CastingAgencyTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 401)
         self.assertEqual(data["message"]["code"], "authorization_header_missing")
 
-    # def test_delete_movie_200(self):
-    #     res = self.client().delete("/movies/2", headers=self.AUTH_HEADER)
-    #     data = json.loads(res.data)
-
-    #     self.assertEqual(res.status_code, 200)
-    #     self.assertEqual(data["success"], True)
-    #     self.assertEqual(data["movie_id"], 2)
-
     def test_delete_movie_401(self):
         res = self.client().delete("/movies/2", headers="")
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 401)
         self.assertEqual(data["message"]["code"], "authorization_header_missing")
+
+    def test_delete_actor_200(self):
+        res = self.client().delete("/actors/2", headers=self.AUTH_HEADER)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data["success"], True)
+        self.assertEqual(data["actor_id"], "2")
+
+    def test_delete_movie_200(self):
+        res = self.client().delete("/movies/2", headers=self.AUTH_HEADER)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data["success"], True)
+        self.assertEqual(data["movie_id"], "2")
 
 
 # Make the tests conveniently executable

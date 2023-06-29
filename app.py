@@ -155,7 +155,7 @@ def create_app(test_config=None):
                 return jsonify(
                     {
                         "success": True,
-                        "actor": [data],
+                        "actor": data,
                     }
                 )
             # @todo: refactor the page
@@ -202,6 +202,7 @@ def create_app(test_config=None):
 
             # Get list of actors after insert
             selection = Actor.query.all()
+            data = actor.to_dict()
 
         except Exception as err:
             db.session.rollback()
@@ -219,7 +220,7 @@ def create_app(test_config=None):
             return jsonify(
                 {
                     "success": True,
-                    "actor": [actor.to_dict()],
+                    "actor": data,
                     "total": len(selection),
                 }
             )
@@ -304,7 +305,7 @@ def create_app(test_config=None):
             return jsonify(
                 {
                     "success": True,
-                    "actor": [actor.to_dict()],
+                    "actor": actor.to_dict(),
                 }
             )
         return redirect(url_for("show_actor", actor_id=actor_id))
@@ -381,7 +382,7 @@ def create_app(test_config=None):
                 return jsonify(
                     {
                         "success": True,
-                        "movie": [data],
+                        "movie": data,
                     }
                 )
             return render_template("pages/show_movie.html", movie=data)
