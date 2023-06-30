@@ -82,43 +82,6 @@ Highlight folders:
 * `templates/forms` -- (Already complete.) Defines the forms used to create new movies, and actors.
 * `app.py` -- (Missing functionality.) Defines routes that match the user’s URL, and controllers which handle data and renders views to the user. This is the main file you will be working on to connect to and manipulate the database and render views with data to the user, based on the URL.
 * Models in `app.py` -- (Missing functionality.) Defines the data models that set up the database tables.
-* `config.py` -- (Missing functionality.) Stores configuration variables and instructions, separate from the main application code. This is where you will need to connect to the database.
-
-
-Instructions
------
-
-1. Understand the Project Structure (explained above) and where important files are located.
-2. Build and run local development following the Development Setup steps below.
-3. Fill in the missing functionality in this application: this application currently pulls in fake data, and needs to now connect to a real database and talk to a real backend.
-4. Fill out every `TODO` section throughout the codebase. We suggest going in order of the following:
-    * Connect to a database in `config.py`. A project submission that uses a local database connection is fine.
-    * Using SQLAlchemy, set up normalized models for the objects we support in our web app in the Models section of `app.py`. Check out the sample pages provided at /movies/1, /actors/1 for examples of the data we want to model, using all of the learned best practices in database schema design. Implement missing model properties and relationships using database migrations via Flask-Migrate.
-    * Implement form submissions for creating new Actors, Movies. There should be proper constraints, powering the `/create` endpoints that serve the create form templates, to avoid duplicate or nonsensical form submissions. Submitting a form should create proper new records in the database.
-    * Implement the controllers for listing Actors, Movies. Note the structure of the mock data used. We want to keep the structure of the mock data.
-    * Implement search, powering the `/search` endpoints that serve the application's search functionalities.
-    * Serve actor and movie detail pages, powering the `<actor|movie>/<id>` endpoints that power the detail pages.
-
-#### Data Handling with `Flask-WTF` Forms
-The starter codes use an interactive form builder library called [Flask-WTF](https://flask-wtf.readthedocs.io/). This library provides useful functionality, such as form validation and error handling. You can peruse the Actor, and Movie form builders in `forms.py` file. The WTForms are instantiated in the `app.py` file. To manage the request from Flask-WTF form, each field from the form has a `data` attribute containing the value from user input. For example, to handle the `actor_id` data from the Actor form, you can use: `show = Show(actor_id=form.actor_id.data)`, instead of using `request.form['actor_id']`.
-
-Acceptance Criteria
------
-
-1. The web app should be successfully connected to a PostgreSQL database. A local connection to a database on your local computer is fine.
-2. There should be no use of mock data throughout the app. The data structure of the mock data per controller should be kept unmodified when satisfied by real data.
-3. The application should behave just as before with mock data, but now uses real data from a real backend server, with real search functionality. For example:
-  * when a user submits a new movie record, the user should be able to see it populate in /movies, as well as search for the movie by name and have the search return results.
-  * I should be able to go to the URL `/movie/<movie-id>` to visit a particular movie’s page using a unique ID per movie, and see real data about that particular movie.
-  * Search should be allowed to be partial string matching and case-insensitive.
-
-4. As a fellow developer on this application, I should be able to run `flask db migrate`, and have my local database (once set up and created) be populated with the right tables to run this application and have it interact with my local postgres server, serving the application's needs completely with real data I can seed my local database with.
-  * The models should be completed (see TODOs in the `Models` section of `app.py`) and model the objects used throughout Fyyur.
-  * Define the models in a different file to follow [Separation of Concerns](https://en.wikipedia.org/wiki/Separation_of_concerns) design principles. You can refactor the models to a new file, such as `models.py`.
-  * The right _type_ of relationship and parent-child dynamics between models should be accurately identified and fit the needs of this particular application.
-  * The relationship between the models should be accurately configured, and referential integrity amongst the models should be preserved.
-  * `flask db migrate` should work, and populate my local postgres database with properly configured tables for this application's objects, including proper columns, column data types, constraints, defaults, and relationships that completely satisfy the needs of this application. The proper type of relationship between actors, movies should be configured.
-
 
 ## Development Setup
 1. **Clone the project**

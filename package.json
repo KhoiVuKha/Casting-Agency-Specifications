@@ -11,5 +11,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KhoiVuKha/Project-Casting-Agency.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KhoiVuKha/Project-Casting-Agency/issues"
+  },
+  "homepage": "https://github.com/KhoiVuKha/Project-Casting-Agency#readme"
 }
