@@ -170,7 +170,7 @@ Navigate to project homepage [http://127.0.0.1:5000/](http://127.0.0.1:5000/) or
   - `Using pip uninstall Flask and then pip install flask==2.0.3`
 
 ## Deployment to Render Cloud Platform
-Follow [this instruction]() to deploy Flask App to Render Cloud.
+Follow [this instruction](https://github.com/KhoiVuKha/Project-Casting-Agency/blob/main/Instruction-to-Render-Cloud-Platform/README.md) to deploy Flask App to Render Cloud.
 
 ## API Reference
 
