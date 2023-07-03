@@ -70,18 +70,20 @@ npm install bootstrap@3
   ```
 
 Overall:
-* Models are located in the `MODELS` section of `app.py`.
+* Models are located in the `MODELS` section of `models.py`.
 * Controllers are also located in `app.py`.
+* Authentications are located in `auth/auth.py`.
 * The web frontend is located in `templates/`, which builds static assets deployed to the web server at `static/`.
 * Web forms for creating data are located in `form.py`
 
 
 Highlight folders:
-* `templates/pages` -- (Already complete.) Defines the pages that are rendered to the site. These templates render views based on data passed into the template’s view, in the controllers defined in `app.py`. These pages successfully represent the data to the user, and are already defined for you.
-* `templates/layouts` -- (Already complete.) Defines the layout that a page can be contained in to define footer and header code for a given page.
-* `templates/forms` -- (Already complete.) Defines the forms used to create new movies, and actors.
-* `app.py` -- (Missing functionality.) Defines routes that match the user’s URL, and controllers which handle data and renders views to the user. This is the main file you will be working on to connect to and manipulate the database and render views with data to the user, based on the URL.
-* Models in `app.py` -- (Missing functionality.) Defines the data models that set up the database tables.
+* `templates/pages` -- Defines the pages that are rendered to the site. These templates render views based on data passed into the template’s view, in the controllers defined in `app.py`. These pages successfully represent the data to the user, and are already defined for you.
+* `templates/layouts` -- Defines the layout that a page can be contained in to define footer and header code for a given page.
+* `templates/forms` -- Defines the forms used to create new movies, and actors.
+* `app.py` -- Defines routes that match the user’s URL, and controllers which handle data and renders views to the user. This is the main file you will be working on to connect to and manipulate the database and render views with data to the user, based on the URL.
+* Models in `models.py` -- Defines the data models that set up the database tables.
+* Authentications in `auth/auth.py` -- Defines some methods to get authentication header, get and decode JWT token and check permissions.
 
 ## Development Setup
 1. **Clone the project**
