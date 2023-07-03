@@ -92,7 +92,7 @@ git clone git@github.com:KhoiVuKha/Project-Casting-Agency.git
 cd Project-Casting-Agency
 ```
 
-3. **Initialize and activate a virtualenv using:**
+2. **Initialize and activate a virtualenv using:**
 ```
 python3 -m venv env
 source env/bin/activate
@@ -102,29 +102,50 @@ source env/bin/activate
 source env/Scripts/activate
 ```
 
-4. **Install the dependencies:**
+3. **Install the dependencies:**
 ```
 pip install -r requirements.txt
 ```
 
-5. **Set up environment:**
+4. **Set up environment:**
 Note that the main database was deployed in render server.
 ```
 chmod +x setup.sh
 source setup.sh
 ```
 
-6. **Run the development server locally:**
+5. **Run unit test**
+Note: Before run unit test, please do some steps in `section 8` to get the JWT token for `Excutive Producer` user and modify the old token (variable `JWT`) in `setup.sh` file
+```
+dropdb casting_agency_test # (optional) Drop if it exists
+createdb casting_agency_test 
+psql -U postgres -d casting_agency_test < casting_agency_test.sql
+python3 test_app.py
+```
+
+6. **Run API test (RBAC)**
+Note: Before run API test, please do some steps in `section 8` to get the JWT tokens for `Casting Assistant`, `Casting Director`, `Excutive Producer`, save these tokens in order to import to Postman in the future.
+We may need using some Incognito tabs of browser to prevent caching or we may need to clear cache for another login.
+```
+dropdb casting_agency_test # (optional) Drop if it exists
+createdb casting_agency_test 
+psql -U postgres -d casting_agency_test < casting_agency_test.sql
+python3 app.py
+```
+
+Open Postman and import json config: `project-casting-agency.postman_collection.json` modify these old JWT tokens with these new token that you've just saved and run all test of `project-casting-agency` with following configs:
+- Run manually
+- Interations: 1
+- Delay: 0
+Then press `Run project-casting-agency` to run all test.
+
+7. **Run the development server locally:**
 ```
 python3 app.py
 ```
 
-7. **Verify on the Browser**<br>
-- For Development (Run app locally):
-Navigate to project homepage [http://127.0.0.1:5000/](http://127.0.0.1:5000/) or [http://localhost:5000](http://localhost:5000)
-
-- For users (Run app deployed in render server): https://casting-agency-specifications.onrender.com/.
-Please login as following roles (User name and password provided in setup.sh file):
+8. **Verify on the Browser**<br>
+Please press Login in Navigation Bar and login as following roles (User name and password provided in setup.sh file):
   - Casting Assistant
     - Can view actors and movies
   - Casting Director
@@ -134,14 +155,12 @@ Please login as following roles (User name and password provided in setup.sh fil
   - Executive Producer
     - All permissions a Casting Director has and…
     - Add or delete a movie from the database
+Then get appropriate JWT token in the address bar of browser.
 
-7. **Run test**
-```
-dropdb casting_agency_test # (optional) Drop if it exists
-createdb casting_agency_test 
-psql -U postgres -d casting_agency_test < casting_agency_test.sql
-python3 test_app.py
-```
+- For Development (Run app locally):
+Navigate to project homepage [http://127.0.0.1:5000/](http://127.0.0.1:5000/) or [http://localhost:5000](http://localhost:5000)
+
+- For users (Run app deployed in render server): https://casting-agency-specifications.onrender.com/.
 
 ## Troubleshooting:
 - If you encounter any dependency errors, please ensure that you are using Python 3.9 or lower.

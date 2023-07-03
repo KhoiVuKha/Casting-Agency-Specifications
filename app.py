@@ -31,6 +31,7 @@ collections.Callable = collections.abc.Callable
 import sys, os
 from operator import itemgetter  # for sorting lists of tuples
 import ssl
+
 ssl._create_default_https_context = ssl._create_unverified_context
 
 # import database's models

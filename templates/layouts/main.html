@@ -78,7 +78,8 @@
                 href="{{ url_for('actors') }}">Actors</a></li>
             <li {% if request.endpoint=='movies' %} class="active" {% endif %}><a
                 href="{{ url_for('movies') }}">Movies</a></li>
-            <li {% if request.endpoint=='login' %} class="active" {% endif %}><a href="{{ url_for('login') }}">Login</a>
+            <li {% if request.endpoint=='login' %} class="active" {% endif %}><a
+                href="https://khoivu.us.auth0.com/authorize?audience=casting-agency&response_type=token&client_id=GBAWHkwFAveLf28iu9P9rQvYm3Q0Ex6G&redirect_uri=https://casting-agency-specifications.onrender.com/">Login</a>
             </li>
           </ul>
         </div><!--/.nav-collapse -->
