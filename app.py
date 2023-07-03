@@ -42,6 +42,11 @@ from auth.auth import AuthError, requires_auth
 
 ITEMS_PER_PAGE = 10
 
+# Get token from env
+ASSISTANT_TOKEN = os.getenv("ASSISTANT_TOKEN", "")
+DIRECTOR_TOKEN = os.getenv("DIRECTOR_TOKEN", "")
+PRODUCER_TOKEN = os.getenv("PRODUCER_TOKEN", "")
+
 
 def paginate_items(request, selection):
     page = request.args.get("page", 1, type=int)

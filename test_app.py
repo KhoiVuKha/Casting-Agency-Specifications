@@ -9,6 +9,9 @@ import ssl
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
+# Get token from env
+PRODUCER_TOKEN = os.getenv("PRODUCER_TOKEN", "")
+
 
 class CastingAgencyTestCase(unittest.TestCase):
     """This class represents the Casting Agency test case"""
@@ -17,7 +20,7 @@ class CastingAgencyTestCase(unittest.TestCase):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client
-        self.JWT = os.getenv("JWT", "")
+        self.JWT = PRODUCER_TOKEN
         self.AUTH_HEADER = {
             "Content-Type": "application/json",
             "Authorization": "Bearer {}".format(self.JWT),
